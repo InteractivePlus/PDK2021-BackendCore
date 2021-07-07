@@ -1,0 +1,20 @@
+{
+  "name": "pdk2021-backendcore",
+  "version": "0.0.1",
+  "description": "Core Library for Backend JS/TS Developmenet",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yunhao Cao",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "eslint": "^7.29.0",
+    "typescript": "^4.3.4"
+  },
+  "dependencies": {
+    "pdk2021-common": "file:../pdk2021-common"
+  }
+}
