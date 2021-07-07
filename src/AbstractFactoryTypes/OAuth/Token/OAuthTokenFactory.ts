@@ -10,11 +10,11 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
     
     createOAuthToken(createInfo: OAuthTokenCreateInfo) : PDKAbstractDataTypes.OAuthToken;
 
-    verifyOAuthAccessToken<VerifyAccessTokenInfo>(verifyInfo : VerifyAccessTokenInfo) : boolean;
+    verifyOAuthAccessToken(verifyInfo : VerifyAccessTokenInfo) : boolean;
     setOAuthAcessTokenInvalid?(accessToken : PDKAbstractDataTypes.OAuthAccessToken) : void;
 
-    verifyOAuthRefreshToken<VerifyRefreshTokenInfo>(verifyInfo : VerifyRefreshTokenInfo) : boolean;
-    verifyAndUseOAuthRefreshToken<VerifyRefreshTokenInfo>(verifyInfo : VerifyRefreshTokenInfo) : boolean;
+    verifyOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
+    verifyAndUseOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
     
     getOAuthToken?(accessToken : PDKAbstractDataTypes.OAuthAccessToken) : PDKAbstractDataTypes.OAuthToken | undefined;
     getOAuthTokenByRefreshToken?(refreshToken : PDKAbstractDataTypes.OAuthRefreshToken) : PDKAbstractDataTypes.OAuthToken | undefined;
@@ -66,7 +66,7 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
         startPosition?: number
      ) : PDKInternalDataTypes.SearchResult<PDKAbstractDataTypes.OAuthToken>;
     
-     clearOAuthToken(
+     clearOAuthToken?(
         maskUID?: PDKAbstractDataTypes.MaskUID,
         userUID?: PDKAbstractDataTypes.UserEntityUID,
         clientID?: PDKAbstractDataTypes.APPClientID,
