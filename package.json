@@ -17,8 +17,7 @@
     "typescript": "^4.3.4"
   },
   "dependencies": {
-    "i18n-iso-countries": "^6.8.0",
-    "locale-code": "^2.0.2",
+    "i18n-codes-js": "^0.0.1",
     "pdk2021-common": "file:../pdk2021-common"
   }
 }
