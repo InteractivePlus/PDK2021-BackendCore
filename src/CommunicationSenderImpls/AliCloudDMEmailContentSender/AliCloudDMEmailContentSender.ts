@@ -1,11 +1,9 @@
-/// <reference path="../../../@types/@alicloud__dm-2017-06-22/index.d.ts"/>
-
 import {PDKAbstractDataTypes, PDKUtils} from 'pdk2021-common';
 import { ContentSenderInterface } from '../../AbstractFactoryTypes/Communication/CommunicationSender/Content/ContentSenderInterface';
 
 
-import dm from '@alicloud/dm-2017-06-22';
-import alicloud__dm_2017_06_22 from '@alicloud/dm-2017-06-22';
+import dm, { SingleSendMailRequest, SingleSendMailResponse } from '@alicloud/dm20151123';
+import {Config} from '@alicloud/openapi-client';
 import { CommunicationContent } from '../../AbstractFactoryTypes/Communication/CommunicationSender/Content/CommunicationContent';
 
 const AliCloudDMEndPoints = {
@@ -20,7 +18,7 @@ export {AliCloudDMEndPoints};
 export type {AliCloudDMEndPoint};
 
 class AliCloudDMEmailSender implements ContentSenderInterface<string>{
-    dmObj : alicloud__dm_2017_06_22;
+    dmObj : dm;
     accountNameAddr : string;
     fromAlias?: string;
 
@@ -31,11 +29,11 @@ class AliCloudDMEmailSender implements ContentSenderInterface<string>{
         accountNameAddr: string,
         fromAlias: string
     ){
-        this.dmObj = new dm({
-            endpoint: AliCloudDMEndPoints[Endpoint],
+        this.dmObj = new dm(new Config({
             accessKeyId: accessKeyID,
-            accessKeySecret: accessKeySecret
-        });
+            accessKeySecret: accessKeySecret,
+            endpoint: AliCloudDMEndPoints[Endpoint],
+        }));
         this.accountNameAddr = accountNameAddr;
         this.fromAlias = fromAlias;
     }
@@ -45,23 +43,19 @@ class AliCloudDMEmailSender implements ContentSenderInterface<string>{
     }
 
     async sendContent(address : string, content: CommunicationContent) : Promise<void>{
-        return this.dmObj.singleSendMail({
-            AccountName:this.accountNameAddr,
-            AddressType: 1,
-            ReplyToAddress: false,
-            ToAddress: address,
-            ClickTrace: '1',
-            FromAlias: this.fromAlias,
-            HtmlBody: content.content,
-            Subject: content.title === undefined ? '(No Subject)' : content.title
-        },{}).catch((reason)=>{
+        return this.dmObj.singleSendMail(new SingleSendMailRequest({
+            accountName:this.accountNameAddr,
+            addressType: 1,
+            replyToAddress: false,
+            toAddress: address,
+            clickTrace: '1',
+            fromAlias: this.fromAlias,
+            htmlBody: content.content,
+            subject: content.title === undefined ? '(No Subject)' : content.title
+        })).catch((reason)=>{
             throw new PDKAbstractDataTypes.PDKSenderServiceError('Failed to send email: ' + JSON.stringify(reason));
-        }).then((json : any) => {
-            if('EnvId' in json && 'RequestId' in json){
-                return;
-            }else{
-                throw new PDKAbstractDataTypes.PDKSenderServiceError('Failed to send email: ' + JSON.stringify(json));
-            }
+        }).then((response : SingleSendMailResponse) => {
+            return;
         });
     }
 }
