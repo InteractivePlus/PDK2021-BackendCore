@@ -10,7 +10,7 @@ interface CommunicationContent{
 export type {CommunicationContent};
 
 interface VeriCodeCommunicationContentGenerator{
-    generateContent(VerificationCode : PDKAbstractDataTypes.VeriCodeEntityID, locale?: locales.LocaleCode) : CommunicationContent;
+    generateContent(VerificationCode : PDKAbstractDataTypes.VerificationCodeEntity<any>, relatedUser?: PDKAbstractDataTypes.UserEntity, relatedAPP?: PDKAbstractDataTypes.APPEntity, relatedMaskID?: PDKAbstractDataTypes.MaskIDEntity, locale?: locales.LocaleCode) : CommunicationContent;
 }
 
 export type {VeriCodeCommunicationContentGenerator};

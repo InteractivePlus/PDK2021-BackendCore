@@ -1,4 +1,5 @@
 import {PDKAbstractDataTypes, PDKInternalDataTypes} from 'pdk2021-common';
+import {countries} from 'i18n-codes-js';
 
 type UserEntityCreateInfo = {
     [key in keyof PDKAbstractDataTypes.UserEntity as Exclude<key,'uid'>]: PDKAbstractDataTypes.UserEntity[key]
@@ -27,7 +28,7 @@ interface UserEntityFactory{
         accountCreateTimeGMTMin?: number,
         accountCreateTimeGMTMax?: number,
         accountCreateIP?: string,
-        accountCreateArea?: PDKAbstractDataTypes.CountryCode,
+        accountCreateArea?: countries.CountryCode,
         accountFrozen?: boolean,
         groupId?: PDKAbstractDataTypes.UserGroupGroupID,
         avatarSalt?: string,
@@ -46,7 +47,7 @@ interface UserEntityFactory{
         accountCreateTimeGMTMin?: number,
         accountCreateTimeGMTMax?: number,
         accountCreateIP?: string,
-        accountCreateArea?: PDKAbstractDataTypes.CountryCode,
+        accountCreateArea?: countries.CountryCode,
         accountFrozen?: boolean,
         groupId?: PDKAbstractDataTypes.UserGroupGroupID,
         avatarSalt?: string,
@@ -67,7 +68,7 @@ interface UserEntityFactory{
         accountCreateTimeGMTMin?: number,
         accountCreateTimeGMTMax?: number,
         accountCreateIP?: string,
-        accountCreateArea?: PDKAbstractDataTypes.CountryCode,
+        accountCreateArea?: countries.CountryCode,
         accountFrozen?: boolean,
         groupId?: PDKAbstractDataTypes.UserGroupGroupID,
         avatarSalt?: string,
