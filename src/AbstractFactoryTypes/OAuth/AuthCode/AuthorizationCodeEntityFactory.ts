@@ -1,4 +1,5 @@
 import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { BackendOAuthSystemSetting } from '../../../AbstractDataTypes/SystemSetting/BackendOAuthSystemSetting';
 
 type AuthorizationCodeCreateEntity = {
     [key in keyof PDKAbstractDataTypes.AuthorizationCodeEntity as Exclude<key,'authCode'>]: PDKAbstractDataTypes.AuthorizationCodeEntity[key]
@@ -7,7 +8,7 @@ type AuthorizationCodeCreateEntity = {
 export type {AuthorizationCodeCreateEntity};
 
 interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo>{
-    getOAuthSystemSetting() : PDKAbstractDataTypes.OAuthSystemSetting;
+    getOAuthSystemSetting() : BackendOAuthSystemSetting;
     
     createAuthCode(authCodeInfo : AuthorizationCodeCreateEntity) : PDKAbstractDataTypes.AuthorizationCodeEntity;
     

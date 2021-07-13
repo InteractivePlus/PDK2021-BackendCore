@@ -1,4 +1,5 @@
 import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { BackendUserSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendUserSystemSetting';
 
 type UserTokenCreateInfo = {
     [key in keyof PDKAbstractDataTypes.UserToken as Exclude<key,'accessToken'|'refreshToken'>]: PDKAbstractDataTypes.UserToken[key]
@@ -7,15 +8,29 @@ type UserTokenCreateInfo = {
 export type {UserTokenCreateInfo};
 
 interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
-    getUserSystemSetting() : PDKAbstractDataTypes.UserSystemSetting;
+    getUserSystemSetting() : BackendUserSystemSetting;
 
     createUserToken(createInfo : UserTokenCreateInfo) : PDKAbstractDataTypes.UserToken;
 
     verifyUserAccessToken(verifyInfo : VerifyAccessTokenInfo) : boolean;
     setUserAccessTokenInvalid?(accessToken : PDKAbstractDataTypes.UserAccessToken) : void;
+    /**
+     * Check if verifyInfo for verifying access token is in correct format
+     * @param verifyInfo struct passed by client
+     * @returns {VerifyAccessTokenInfo} Parsed CodeInfo
+     * @throws {PDKAbstractDataTypes.PDKRequestParamFormatError}
+     */
+    checkVerifyAccessTokenInfoValid(verifyInfo: any) : VerifyAccessTokenInfo;
 
     verifyUserRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
     verifyAndUseUserRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
+    /**
+     * Check if verifyInfo for verifying refresh token is in correct format
+     * @param verifyInfo struct passed by client
+     * @returns {VerifyRefreshTokenInfo} Parsed CodeInfo
+     * @throws {PDKAbstractDataTypes.PDKRequestParamFormatError}
+     */
+     checkVerifyRefreshTokenInfoValid(verifyInfo: any) : VerifyRefreshTokenInfo;
 
     getUserToken?(accessToken : PDKAbstractDataTypes.UserAccessToken) : PDKAbstractDataTypes.UserToken | undefined;
     getUserTokenByRefreshToken?(refreshToken : PDKAbstractDataTypes.UserRefreshToken) : PDKAbstractDataTypes.UserToken | undefined;

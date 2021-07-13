@@ -1,11 +1,12 @@
 import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { BackendUserSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendUserSystemSetting';
 
 type UserGroupCreateInfo = PDKAbstractDataTypes.UserGroup;
 
 export type {UserGroupCreateInfo};
 
 interface UserGroupFactory{
-    getUserSystemSetting() : PDKAbstractDataTypes.UserSystemSetting;
+    getUserSystemSetting() : BackendUserSystemSetting;
     
     createUserGroup(createInfo : UserGroupCreateInfo) : PDKAbstractDataTypes.UserGroup;
 

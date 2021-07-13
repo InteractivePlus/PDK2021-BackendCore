@@ -1,4 +1,5 @@
 import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
 
 type APPGroupCreateInfo = {
     [key in keyof PDKAbstractDataTypes.APPGroupEntity]: PDKAbstractDataTypes.APPGroupEntity[key]
@@ -7,7 +8,7 @@ type APPGroupCreateInfo = {
 export type {APPGroupCreateInfo};
 
 interface APPGroupEntityFactory{
-    getAPPSystemSetting() : PDKAbstractDataTypes.APPSystemSetting;
+    getAPPSystemSetting() : BackendAPPSystemSetting;
 
     createAPPGroupEntity(createInfo: APPGroupCreateInfo) : PDKAbstractDataTypes.APPGroupEntity;
     getAPPGroupEntity(appGroupId : PDKAbstractDataTypes.APPGroupID) : PDKAbstractDataTypes.APPGroupEntity | undefined;

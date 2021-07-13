@@ -1,5 +1,6 @@
 import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
 import {countries} from 'i18n-codes-js';
+import { BackendUserSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendUserSystemSetting';
 
 type UserEntityCreateInfo = {
     [key in keyof PDKAbstractDataTypes.UserEntity as Exclude<key,'uid'>]: PDKAbstractDataTypes.UserEntity[key]
@@ -8,7 +9,7 @@ type UserEntityCreateInfo = {
 export type {UserEntityCreateInfo};
 
 interface UserEntityFactory{
-    getUserSystemSetting() : PDKAbstractDataTypes.UserSystemSetting;
+    getUserSystemSetting() : BackendUserSystemSetting;
 
     createUser(createInfo : UserEntityCreateInfo) : PDKAbstractDataTypes.UserEntity;
     getUser(uid : PDKAbstractDataTypes.UserEntityUID) : PDKAbstractDataTypes.UserEntity | undefined;

@@ -1,4 +1,5 @@
 import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { BackendOAuthSystemSetting } from '../../../AbstractDataTypes/SystemSetting/BackendOAuthSystemSetting';
 type OAuthTokenCreateInfo = {
     [key in keyof PDKAbstractDataTypes.OAuthToken as Exclude<key,'accessToken'|'refreshToken'>]: PDKAbstractDataTypes.OAuthToken[key]
 }
@@ -6,7 +7,7 @@ type OAuthTokenCreateInfo = {
 export type {OAuthTokenCreateInfo};
 
 interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
-    getOAuthSystemSetting() : PDKAbstractDataTypes.OAuthSystemSetting;
+    getOAuthSystemSetting() : BackendOAuthSystemSetting;
     
     createOAuthToken(createInfo: OAuthTokenCreateInfo) : PDKAbstractDataTypes.OAuthToken;
 
@@ -15,6 +16,21 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
 
     verifyOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
     verifyAndUseOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
+    /**
+     * Check if verifyInfo for verifying access code is in correct format
+     * @param verifyInfo struct passed by client
+     * @returns {VerifyRefreshTokenInfo} Parsed CodeInfo
+     * @throws {PDKAbstractDataTypes.PDKRequestParamFormatError}
+     */
+    checkVerifyAccessTokenInfoValid(verifyInfo: any) : VerifyAccessTokenInfo;
+
+    /**
+     * Check if verifyInfo for verifying refresh code is in correct format
+     * @param verifyInfo struct passed by client
+     * @returns {VerifyCodeInfo} Parsed CodeInfo
+     * @throws {PDKAbstractDataTypes.PDKRequestParamFormatError}
+     */
+     checkVerifyRefreshTokenInfoValid(verifyInfo: any) : VerifyRefreshTokenInfo;
     
     getOAuthToken?(accessToken : PDKAbstractDataTypes.OAuthAccessToken) : PDKAbstractDataTypes.OAuthToken | undefined;
     getOAuthTokenByRefreshToken?(refreshToken : PDKAbstractDataTypes.OAuthRefreshToken) : PDKAbstractDataTypes.OAuthToken | undefined;

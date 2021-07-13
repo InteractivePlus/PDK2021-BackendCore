@@ -1,4 +1,5 @@
 import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
 
 type APPEntityCreateInfo = {
     [key in keyof PDKAbstractDataTypes.APPEntity as Exclude<key,'appuid'>]: PDKAbstractDataTypes.APPEntity[key]
@@ -7,7 +8,7 @@ type APPEntityCreateInfo = {
 export type {APPEntityCreateInfo};
 
 interface APPEntityFactory{
-    getAPPSystemSetting() : PDKAbstractDataTypes.APPSystemSetting;
+    getAPPSystemSetting() : BackendAPPSystemSetting;
 
     createAPPEntity(createInfo : APPEntityCreateInfo) : PDKAbstractDataTypes.APPEntity;
     
