@@ -1,4 +1,4 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from 'pdk2021-common';
+import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
 
 type UserTokenCreateInfo = {
     [key in keyof PDKAbstractDataTypes.UserToken as Exclude<key,'accessToken'|'refreshToken'>]: PDKAbstractDataTypes.UserToken[key]

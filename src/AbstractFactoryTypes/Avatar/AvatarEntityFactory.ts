@@ -1,4 +1,4 @@
-import {PDKAbstractDataTypes} from 'pdk2021-common';
+import {PDKAbstractDataTypes} from '@interactiveplus/pdk2021-common';
 
 type AvatarCreateEntity = {
     [key in keyof PDKAbstractDataTypes.AvatarEntity as Exclude<key,'salt'>]: PDKAbstractDataTypes.AvatarEntity[key]

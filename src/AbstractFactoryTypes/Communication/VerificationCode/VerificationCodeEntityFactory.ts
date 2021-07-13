@@ -1,4 +1,4 @@
-import { PDKAbstractDataTypes, PDKInternalDataTypes } from "pdk2021-common";
+import { PDKAbstractDataTypes, PDKInternalDataTypes } from "@interactiveplus/pdk2021-common";
 
 type VerificationCodeCreateEntity<ParamType> = {
     [key in keyof PDKAbstractDataTypes.VerificationCodeEntity<ParamType> as Exclude<key,'veriCodeID'>]: PDKAbstractDataTypes.VerificationCodeEntity<ParamType>[key]

@@ -1,4 +1,4 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from 'pdk2021-common';
+import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
 
 type MaskIDCreateEntity = {
     [key in keyof PDKAbstractDataTypes.MaskIDEntity as Exclude<key,'maskUID'>]: PDKAbstractDataTypes.MaskIDEntity[key]

@@ -1,7 +1,7 @@
 import { CommAddressType, CommunicationSenderInterface } from "../AbstractFactoryTypes/Communication/CommunicationSender/CommunicationInterface";
 import { CommunicationContent, VeriCodeCommunicationContentGenerator } from "../AbstractFactoryTypes/Communication/CommunicationSender/Content/CommunicationContent";
 import { ContentSenderInterface } from "../AbstractFactoryTypes/Communication/CommunicationSender/Content/ContentSenderInterface";
-import {PDKAbstractDataTypes} from 'pdk2021-common';
+import {PDKAbstractDataTypes} from '@interactiveplus/pdk2021-common';
 import {locales} from 'i18n-codes-js';
 
 class CommunicationSenderWithContentSender<AddressType extends CommAddressType> implements CommunicationSenderInterface<AddressType>{

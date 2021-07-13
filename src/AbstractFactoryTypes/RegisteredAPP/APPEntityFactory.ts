@@ -1,4 +1,4 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from 'pdk2021-common';
+import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
 
 type APPEntityCreateInfo = {
     [key in keyof PDKAbstractDataTypes.APPEntity as Exclude<key,'appuid'>]: PDKAbstractDataTypes.APPEntity[key]

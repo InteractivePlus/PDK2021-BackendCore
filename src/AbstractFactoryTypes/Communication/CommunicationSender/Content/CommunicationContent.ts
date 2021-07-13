@@ -1,4 +1,4 @@
-import {PDKAbstractDataTypes} from 'pdk2021-common';
+import {PDKAbstractDataTypes} from '@interactiveplus/pdk2021-common';
 import {locales} from 'i18n-codes-js';
 
 interface CommunicationContent{

@@ -21,7 +21,8 @@
     "@alicloud/openapi-client": "^0.2.1",
     "axios": "^0.21.1",
     "i18n-codes-js": "^0.0.1",
+    "ip-address": "^8.0.0",
     "libphonenumber-js": "^1.9.22",
-    "pdk2021-common": "file:../pdk2021-common"
+    "@interactiveplus/pdk2021-common": "file:../pdk2021-common"
   }
 }

@@ -1,4 +1,4 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from 'pdk2021-common';
+import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
 
 type AuthorizationCodeCreateEntity = {
     [key in keyof PDKAbstractDataTypes.AuthorizationCodeEntity as Exclude<key,'authCode'>]: PDKAbstractDataTypes.AuthorizationCodeEntity[key]
