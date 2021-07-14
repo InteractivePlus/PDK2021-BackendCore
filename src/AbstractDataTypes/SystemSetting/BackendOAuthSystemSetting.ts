@@ -1,5 +1,5 @@
-import {PDKAbstractDataTypes} from '@interactiveplus/pdk2021-common';
+import {OAuthSystemSetting} from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/SystemSetting/OAuthSystemSetting';
 
-type BackendOAuthSystemSetting  = PDKAbstractDataTypes.OAuthSystemSetting;
+type BackendOAuthSystemSetting  = OAuthSystemSetting;
 
 export type {BackendOAuthSystemSetting};

@@ -1,7 +1,11 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { MaskUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/MaskID/MaskIDEntity';
+import { OAuthAccessToken, OAuthRefreshToken, OAuthToken } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/Token/OAuthToken';
+import { APPClientID, APPUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat';
+import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
+import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendOAuthSystemSetting } from '../../../AbstractDataTypes/SystemSetting/BackendOAuthSystemSetting';
 type OAuthTokenCreateInfo = {
-    [key in keyof PDKAbstractDataTypes.OAuthToken as Exclude<key,'accessToken'|'refreshToken'>]: PDKAbstractDataTypes.OAuthToken[key]
+    [key in keyof OAuthToken as Exclude<key,'accessToken'|'refreshToken'>]: OAuthToken[key]
 }
 
 export type {OAuthTokenCreateInfo};
@@ -9,10 +13,10 @@ export type {OAuthTokenCreateInfo};
 interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
     getOAuthSystemSetting() : BackendOAuthSystemSetting;
     
-    createOAuthToken(createInfo: OAuthTokenCreateInfo) : PDKAbstractDataTypes.OAuthToken;
+    createOAuthToken(createInfo: OAuthTokenCreateInfo) : OAuthToken;
 
     verifyOAuthAccessToken(verifyInfo : VerifyAccessTokenInfo) : boolean;
-    setOAuthAcessTokenInvalid?(accessToken : PDKAbstractDataTypes.OAuthAccessToken) : void;
+    setOAuthAcessTokenInvalid?(accessToken : OAuthAccessToken) : void;
 
     verifyOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
     verifyAndUseOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
@@ -20,7 +24,7 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
      * Check if verifyInfo for verifying access code is in correct format
      * @param verifyInfo struct passed by client
      * @returns {VerifyRefreshTokenInfo} Parsed CodeInfo
-     * @throws {PDKAbstractDataTypes.PDKRequestParamFormatError}
+     * @throws {PDKRequestParamFormatError}
      */
     checkVerifyAccessTokenInfoValid(verifyInfo: any) : VerifyAccessTokenInfo;
 
@@ -28,24 +32,24 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
      * Check if verifyInfo for verifying refresh code is in correct format
      * @param verifyInfo struct passed by client
      * @returns {VerifyCodeInfo} Parsed CodeInfo
-     * @throws {PDKAbstractDataTypes.PDKRequestParamFormatError}
+     * @throws {PDKRequestParamFormatError}
      */
      checkVerifyRefreshTokenInfoValid(verifyInfo: any) : VerifyRefreshTokenInfo;
     
-    getOAuthToken?(accessToken : PDKAbstractDataTypes.OAuthAccessToken) : PDKAbstractDataTypes.OAuthToken | undefined;
-    getOAuthTokenByRefreshToken?(refreshToken : PDKAbstractDataTypes.OAuthRefreshToken) : PDKAbstractDataTypes.OAuthToken | undefined;
-    updateOAuthToken?(accessToken : PDKAbstractDataTypes.OAuthAccessToken, oAuthToken : PDKAbstractDataTypes.OAuthToken, oldOAuthToken?: PDKAbstractDataTypes.OAuthToken) : void;
-    updateOAuthTokenByRefreshToken?(refreshToken: PDKAbstractDataTypes.OAuthRefreshToken, oAuthToken : PDKAbstractDataTypes.OAuthToken, oldOAuthToken?: PDKAbstractDataTypes.OAuthToken) : void;
-    deleteOAuthToken?(accessToken : PDKAbstractDataTypes.OAuthAccessToken) : void;
-    deleteOAuthTokenByRefreshToken?(refreshToken : PDKAbstractDataTypes.OAuthRefreshToken) : void;
+    getOAuthToken?(accessToken : OAuthAccessToken) : OAuthToken | undefined;
+    getOAuthTokenByRefreshToken?(refreshToken : OAuthRefreshToken) : OAuthToken | undefined;
+    updateOAuthToken?(accessToken : OAuthAccessToken, oAuthToken : OAuthToken, oldOAuthToken?: OAuthToken) : void;
+    updateOAuthTokenByRefreshToken?(refreshToken: OAuthRefreshToken, oAuthToken : OAuthToken, oldOAuthToken?: OAuthToken) : void;
+    deleteOAuthToken?(accessToken : OAuthAccessToken) : void;
+    deleteOAuthTokenByRefreshToken?(refreshToken : OAuthRefreshToken) : void;
 
     getOAuthTokenCount?(
-        maskUID?: PDKAbstractDataTypes.MaskUID,
-        userUID?: PDKAbstractDataTypes.UserEntityUID,
-        clientID?: PDKAbstractDataTypes.APPClientID,
-        appUID?: PDKAbstractDataTypes.APPUID,
-        accessToken?: PDKAbstractDataTypes.OAuthAccessToken,
-        refreshToken?: PDKAbstractDataTypes.OAuthRefreshToken,
+        maskUID?: MaskUID,
+        userUID?: UserEntityUID,
+        clientID?: APPClientID,
+        appUID?: APPUID,
+        accessToken?: OAuthAccessToken,
+        refreshToken?: OAuthRefreshToken,
         issueTimeGMTMin?: number,
         issueTimeGMTMax?: number,
         refreshedTimeGMTMin?: number,
@@ -60,12 +64,12 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
         appSideRemoteAddr?: string,
     ) : number;
     searchOAuthToken?(
-        maskUID?: PDKAbstractDataTypes.MaskUID,
-        userUID?: PDKAbstractDataTypes.UserEntityUID,
-        clientID?: PDKAbstractDataTypes.APPClientID,
-        appUID?: PDKAbstractDataTypes.APPUID,
-        accessToken?: PDKAbstractDataTypes.OAuthAccessToken,
-        refreshToken?: PDKAbstractDataTypes.OAuthRefreshToken,
+        maskUID?: MaskUID,
+        userUID?: UserEntityUID,
+        clientID?: APPClientID,
+        appUID?: APPUID,
+        accessToken?: OAuthAccessToken,
+        refreshToken?: OAuthRefreshToken,
         issueTimeGMTMin?: number,
         issueTimeGMTMax?: number,
         refreshedTimeGMTMin?: number,
@@ -80,15 +84,15 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
         appSideRemoteAddr?: string,
         numLimit?: number,
         startPosition?: number
-     ) : PDKInternalDataTypes.SearchResult<PDKAbstractDataTypes.OAuthToken>;
+     ) : SearchResult<OAuthToken>;
     
      clearOAuthToken?(
-        maskUID?: PDKAbstractDataTypes.MaskUID,
-        userUID?: PDKAbstractDataTypes.UserEntityUID,
-        clientID?: PDKAbstractDataTypes.APPClientID,
-        appUID?: PDKAbstractDataTypes.APPUID,
-        accessToken?: PDKAbstractDataTypes.OAuthAccessToken,
-        refreshToken?: PDKAbstractDataTypes.OAuthRefreshToken,
+        maskUID?: MaskUID,
+        userUID?: UserEntityUID,
+        clientID?: APPClientID,
+        appUID?: APPUID,
+        accessToken?: OAuthAccessToken,
+        refreshToken?: OAuthRefreshToken,
         issueTimeGMTMin?: number,
         issueTimeGMTMax?: number,
         refreshedTimeGMTMin?: number,

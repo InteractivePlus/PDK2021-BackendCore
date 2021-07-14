@@ -1,8 +1,14 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { MaskUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/MaskID/MaskIDEntity';
+import { AuthCodeChallengeType } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/AuthCode/AuthCodeFormat';
+import { AuthorizationCodeEntity } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/AuthCode/AuthorizationCodeEntity';
+import { OAuthAuthorizationMethod } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/OAuthAuthorizationMethod';
+import { OAuthScope } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/OAuthScope';
+import { APPClientID, APPUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat';
+import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendOAuthSystemSetting } from '../../../AbstractDataTypes/SystemSetting/BackendOAuthSystemSetting';
 
 type AuthorizationCodeCreateEntity = {
-    [key in keyof PDKAbstractDataTypes.AuthorizationCodeEntity as Exclude<key,'authCode'>]: PDKAbstractDataTypes.AuthorizationCodeEntity[key]
+    [key in keyof AuthorizationCodeEntity as Exclude<key,'authCode'>]: AuthorizationCodeEntity[key]
 }
 
 export type {AuthorizationCodeCreateEntity};
@@ -10,64 +16,64 @@ export type {AuthorizationCodeCreateEntity};
 interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo>{
     getOAuthSystemSetting() : BackendOAuthSystemSetting;
     
-    createAuthCode(authCodeInfo : AuthorizationCodeCreateEntity) : PDKAbstractDataTypes.AuthorizationCodeEntity;
+    createAuthCode(authCodeInfo : AuthorizationCodeCreateEntity) : AuthorizationCodeEntity;
     
     verifyAuthCode(verifyInfo : VerifyAuthCodeInfo) : boolean;
     verifyAndUseAuthCode(verifyInfo : VerifyAuthCodeInfo) : boolean;
 
-    getAuthorizationCode?(authCode : string) : PDKAbstractDataTypes.AuthorizationCodeEntity | undefined;
-    updateAuthorizationCode?(authCode : string, authCodeEntity : PDKAbstractDataTypes.AuthorizationCodeEntity, oldAuthCodeEntity?: PDKAbstractDataTypes.AuthorizationCodeEntity) : void;
+    getAuthorizationCode?(authCode : string) : AuthorizationCodeEntity | undefined;
+    updateAuthorizationCode?(authCode : string, authCodeEntity : AuthorizationCodeEntity, oldAuthCodeEntity?: AuthorizationCodeEntity) : void;
     deleteAuthorizationCode?(authCode : string) : void;
 
     checkAuthorizationCodeExist?(authCode : string) : boolean;
     getAuthorizationCodeCount?(
         authCode?: string,
-        authMethod?: PDKAbstractDataTypes.OAuthAuthorizationMethod,
+        authMethod?: OAuthAuthorizationMethod,
         issueTimeGMTMin?: number,
         issueTimeGMTMax?: number,
         expireTimeGMTMin?: number,
         expireTimeGMTMax?: number,
         grantUserRemoteAddr?: string,
-        appUID?: PDKAbstractDataTypes.APPUID,
-        clientID?: PDKAbstractDataTypes.APPClientID,
-        maskUID?: PDKAbstractDataTypes.MaskUID,
-        challengeType?: PDKAbstractDataTypes.AuthCodeChallengeType,
+        appUID?: APPUID,
+        clientID?: APPClientID,
+        maskUID?: MaskUID,
+        challengeType?: AuthCodeChallengeType,
         used?: boolean,
-        scopes?: PDKAbstractDataTypes.OAuthScope[],
+        scopes?: OAuthScope[],
         codeChallenge?: string
     ) : number;
     searchAuthorizationCode?(
         authCode?: string,
-        authMethod?: PDKAbstractDataTypes.OAuthAuthorizationMethod,
+        authMethod?: OAuthAuthorizationMethod,
         issueTimeGMTMin?: number,
         issueTimeGMTMax?: number,
         expireTimeGMTMin?: number,
         expireTimeGMTMax?: number,
         grantUserRemoteAddr?: string,
-        appUID?: PDKAbstractDataTypes.APPUID,
-        clientID?: PDKAbstractDataTypes.APPClientID,
-        maskUID?: PDKAbstractDataTypes.MaskUID,
-        challengeType?: PDKAbstractDataTypes.AuthCodeChallengeType,
+        appUID?: APPUID,
+        clientID?: APPClientID,
+        maskUID?: MaskUID,
+        challengeType?: AuthCodeChallengeType,
         used?: boolean,
-        scopes?: PDKAbstractDataTypes.OAuthScope[],
+        scopes?: OAuthScope[],
         codeChallenge?: string,
         numLimit?: number,
         startPosition?: number
-    ) : PDKInternalDataTypes.SearchResult<PDKAbstractDataTypes.AuthorizationCodeEntity>;
+    ) : SearchResult<AuthorizationCodeEntity>;
     clearAuthorizationCode?(
         authCode?: string,
-        authMethod?: PDKAbstractDataTypes.OAuthAuthorizationMethod,
+        authMethod?: OAuthAuthorizationMethod,
         issueTimeGMTMin?: number,
         issueTimeGMTMax?: number,
         expireTimeGMTMin?: number,
         expireTimeGMTMax?: number,
         grantUserRemoteAddr?: string,
-        appUID?: PDKAbstractDataTypes.APPUID,
-        clientID?: PDKAbstractDataTypes.APPClientID,
-        maskUID?: PDKAbstractDataTypes.MaskUID,
-        challengeType?: PDKAbstractDataTypes.AuthCodeChallengeType,
+        appUID?: APPUID,
+        clientID?: APPClientID,
+        maskUID?: MaskUID,
+        challengeType?: AuthCodeChallengeType,
         used?: boolean,
-        scopes?: PDKAbstractDataTypes.OAuthScope[],
+        scopes?: OAuthScope[],
         codeChallenge?: string,
         numLimit?: number,
         startPosition?: number

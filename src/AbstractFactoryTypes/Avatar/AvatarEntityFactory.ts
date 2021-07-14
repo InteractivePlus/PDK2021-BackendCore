@@ -1,16 +1,16 @@
-import {PDKAbstractDataTypes} from '@interactiveplus/pdk2021-common';
+import {AvatarEntity} from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/Avatar/AvatarEntity';
 
 type AvatarCreateEntity = {
-    [key in keyof PDKAbstractDataTypes.AvatarEntity as Exclude<key,'salt'>]: PDKAbstractDataTypes.AvatarEntity[key]
+    [key in keyof AvatarEntity as Exclude<key,'salt'>]: AvatarEntity[key]
 }
 
 export type {AvatarCreateEntity};
 
 interface AvatarEntityFactory{
-    getAvatarBySalt(salt: string) : PDKAbstractDataTypes.AvatarEntity | undefined,
-    uploadNewAvatar(createInfo: AvatarCreateEntity) : PDKAbstractDataTypes.AvatarEntity;
+    getAvatarBySalt(salt: string) : AvatarEntity | undefined,
+    uploadNewAvatar(createInfo: AvatarCreateEntity) : AvatarEntity;
     checkAvatarExists(salt: string) : boolean,
-    updateAvatar(salt : string, avatarEntity : PDKAbstractDataTypes.AvatarEntity, oldAvatarEntity?: PDKAbstractDataTypes.AvatarEntity) : void;
+    updateAvatar(salt : string, avatarEntity : AvatarEntity, oldAvatarEntity?: AvatarEntity) : void;
 }
 
 export type {AvatarEntityFactory};

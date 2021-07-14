@@ -1,35 +1,36 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { UserGroup, UserGroupGroupID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/UserGroup/UserGroup';
+import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendUserSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendUserSystemSetting';
 
-type UserGroupCreateInfo = PDKAbstractDataTypes.UserGroup;
+type UserGroupCreateInfo = UserGroup;
 
 export type {UserGroupCreateInfo};
 
 interface UserGroupFactory{
     getUserSystemSetting() : BackendUserSystemSetting;
     
-    createUserGroup(createInfo : UserGroupCreateInfo) : PDKAbstractDataTypes.UserGroup;
+    createUserGroup(createInfo : UserGroupCreateInfo) : UserGroup;
 
-    getUserGroup(groupId : PDKAbstractDataTypes.UserGroupGroupID) : PDKAbstractDataTypes.UserGroup | undefined;
-    updateUserGroup(groupId : PDKAbstractDataTypes.UserGroupGroupID, groupEntity : PDKAbstractDataTypes.UserGroup, oldGroupEntity?: PDKAbstractDataTypes.UserGroup) : void;
-    deleteUserGroup(groupId : PDKAbstractDataTypes.UserGroupGroupID) : void;
+    getUserGroup(groupId : UserGroupGroupID) : UserGroup | undefined;
+    updateUserGroup(groupId : UserGroupGroupID, groupEntity : UserGroup, oldGroupEntity?: UserGroup) : void;
+    deleteUserGroup(groupId : UserGroupGroupID) : void;
 
     getUserGroupCount(
-        groupId?: PDKAbstractDataTypes.UserGroupGroupID,
+        groupId?: UserGroupGroupID,
         nickname?: string,
         description?: string,
         avatarSalt?: string
     ) : number;
     searchUserGroup(
-        groupId?: PDKAbstractDataTypes.UserGroupGroupID,
+        groupId?: UserGroupGroupID,
         nickname?: string,
         description?: string,
         avatarSalt?: string,
         numLimit?: number,
         startPosition?: number
-    ) : PDKInternalDataTypes.SearchResult<PDKAbstractDataTypes.UserGroup>;
+    ) : SearchResult<UserGroup>;
     clearUserGroup(
-        groupId?: PDKAbstractDataTypes.UserGroupGroupID,
+        groupId?: UserGroupGroupID,
         nickname?: string,
         description?: string,
         avatarSalt?: string,

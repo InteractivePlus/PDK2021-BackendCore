@@ -1,8 +1,12 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { OAuthAuthorizationMethod } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/OAuthAuthorizationMethod';
+import { APPEntity } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntity';
+import { APPClientID, APPClientSecret, APPUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat';
+import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
+import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
 
 type APPEntityCreateInfo = {
-    [key in keyof PDKAbstractDataTypes.APPEntity as Exclude<key,'appuid'>]: PDKAbstractDataTypes.APPEntity[key]
+    [key in keyof APPEntity as Exclude<key,'appuid'>]: APPEntity[key]
 }
 
 export type {APPEntityCreateInfo};
@@ -10,21 +14,21 @@ export type {APPEntityCreateInfo};
 interface APPEntityFactory{
     getAPPSystemSetting() : BackendAPPSystemSetting;
 
-    createAPPEntity(createInfo : APPEntityCreateInfo) : PDKAbstractDataTypes.APPEntity;
+    createAPPEntity(createInfo : APPEntityCreateInfo) : APPEntity;
     
-    verifyAPPEntityCredential(clientID : PDKAbstractDataTypes.APPClientID, currentGrantType : PDKAbstractDataTypes.OAuthAuthorizationMethod, clientSecret?: PDKAbstractDataTypes.APPClientSecret) : boolean;
+    verifyAPPEntityCredential(clientID : APPClientID, currentGrantType : OAuthAuthorizationMethod, clientSecret?: APPClientSecret) : boolean;
 
-    getAPPEntity(appuid : PDKAbstractDataTypes.APPUID) : PDKAbstractDataTypes.APPEntity | undefined;
-    getAPPEntityByClientID(clientID : PDKAbstractDataTypes.APPClientID) : PDKAbstractDataTypes.APPEntity | undefined;
-    updateAPPEntity(appuid : PDKAbstractDataTypes.APPUID, appEntity : PDKAbstractDataTypes.APPEntity, oldAPPEntity?: PDKAbstractDataTypes.APPEntity) : void;
-    deleteAPPEntity(appuid : PDKAbstractDataTypes.APPUID) : void;
+    getAPPEntity(appuid : APPUID) : APPEntity | undefined;
+    getAPPEntityByClientID(clientID : APPClientID) : APPEntity | undefined;
+    updateAPPEntity(appuid : APPUID, appEntity : APPEntity, oldAPPEntity?: APPEntity) : void;
+    deleteAPPEntity(appuid : APPUID) : void;
 
     getAPPEntityCount(
-        appuid?: PDKAbstractDataTypes.APPUID,
-        clientID?: PDKAbstractDataTypes.APPClientID,
+        appuid?: APPUID,
+        clientID?: APPClientID,
         displayName?: string,
         description?: string,
-        relatedUID?: PDKAbstractDataTypes.UserEntityUID,
+        relatedUID?: UserEntityUID,
         createTimeGMTMin?: number,
         createTimeGMTMax?: number,
         lastModifiedTimeGMTMin?: number,
@@ -33,11 +37,11 @@ interface APPEntityFactory{
         appGroupId?: string
     ): number;
     searchAPPEntity(
-        appuid?: PDKAbstractDataTypes.APPUID,
-        clientID?: PDKAbstractDataTypes.APPClientID,
+        appuid?: APPUID,
+        clientID?: APPClientID,
         displayName?: string,
         description?: string,
-        relatedUID?: PDKAbstractDataTypes.UserEntityUID,
+        relatedUID?: UserEntityUID,
         createTimeGMTMin?: number,
         createTimeGMTMax?: number,
         lastModifiedTimeGMTMin?: number,
@@ -46,13 +50,13 @@ interface APPEntityFactory{
         appGroupId?: string,
         numLimit?: number,
         startPosition?: number
-    ) : PDKInternalDataTypes.SearchResult<PDKAbstractDataTypes.APPEntity>;
+    ) : SearchResult<APPEntity>;
     clearAPPEntity(
-        appuid?: PDKAbstractDataTypes.APPUID,
-        clientID?: PDKAbstractDataTypes.APPClientID,
+        appuid?: APPUID,
+        clientID?: APPClientID,
         displayName?: string,
         description?: string,
-        relatedUID?: PDKAbstractDataTypes.UserEntityUID,
+        relatedUID?: UserEntityUID,
         createTimeGMTMin?: number,
         createTimeGMTMax?: number,
         lastModifiedTimeGMTMin?: number,

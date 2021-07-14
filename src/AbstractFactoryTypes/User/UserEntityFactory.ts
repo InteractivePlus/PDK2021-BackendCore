@@ -1,9 +1,11 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
 import {countries} from 'i18n-codes-js';
+import { PhoneNumber, UserEntity, UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
+import { UserGroupGroupID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/UserGroup/UserGroup';
+import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendUserSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendUserSystemSetting';
 
 type UserEntityCreateInfo = {
-    [key in keyof PDKAbstractDataTypes.UserEntity as Exclude<key,'uid'>]: PDKAbstractDataTypes.UserEntity[key]
+    [key in keyof UserEntity as Exclude<key,'uid'>]: UserEntity[key]
 }
 
 export type {UserEntityCreateInfo};
@@ -11,16 +13,16 @@ export type {UserEntityCreateInfo};
 interface UserEntityFactory{
     getUserSystemSetting() : BackendUserSystemSetting;
 
-    createUser(createInfo : UserEntityCreateInfo) : PDKAbstractDataTypes.UserEntity;
-    getUser(uid : PDKAbstractDataTypes.UserEntityUID) : PDKAbstractDataTypes.UserEntity | undefined;
-    getUserByUsername(username : string) : PDKAbstractDataTypes.UserEntity | undefined;
-    getUserByEmail(email : string) : PDKAbstractDataTypes.UserEntity | undefined;
-    getUserByPhoneNum(phoneNum : PDKAbstractDataTypes.PhoneNumber) : PDKAbstractDataTypes.UserEntity | undefined;
-    updateUser(uid : PDKAbstractDataTypes.UserEntityUID, userEntity : PDKAbstractDataTypes.UserEntity, oldUserEntity?: PDKAbstractDataTypes.UserEntity) : void;
-    deleteUser(uid : PDKAbstractDataTypes.UserEntityUID) : void;
+    createUser(createInfo : UserEntityCreateInfo) : UserEntity;
+    getUser(uid : UserEntityUID) : UserEntity | undefined;
+    getUserByUsername(username : string) : UserEntity | undefined;
+    getUserByEmail(email : string) : UserEntity | undefined;
+    getUserByPhoneNum(phoneNum : PhoneNumber) : UserEntity | undefined;
+    updateUser(uid : UserEntityUID, userEntity : UserEntity, oldUserEntity?: UserEntity) : void;
+    deleteUser(uid : UserEntityUID) : void;
 
     getUserCount(
-        uid?: PDKAbstractDataTypes.UserEntityUID,
+        uid?: UserEntityUID,
         username?: string,
         nickname?: string,
         signature?: string,
@@ -31,7 +33,7 @@ interface UserEntityFactory{
         accountCreateIP?: string,
         accountCreateArea?: countries.CountryCode,
         accountFrozen?: boolean,
-        groupId?: PDKAbstractDataTypes.UserGroupGroupID,
+        groupId?: UserGroupGroupID,
         avatarSalt?: string,
         lastLoginTimeGMTMin?: number,
         lastLoginTimeGMTMax?: number,
@@ -39,7 +41,7 @@ interface UserEntityFactory{
         lastActiveTimeGMTMax?: number
     ) : number;
     searchUser(
-        uid?: PDKAbstractDataTypes.UserEntityUID,
+        uid?: UserEntityUID,
         username?: string,
         nickname?: string,
         signature?: string,
@@ -50,7 +52,7 @@ interface UserEntityFactory{
         accountCreateIP?: string,
         accountCreateArea?: countries.CountryCode,
         accountFrozen?: boolean,
-        groupId?: PDKAbstractDataTypes.UserGroupGroupID,
+        groupId?: UserGroupGroupID,
         avatarSalt?: string,
         lastLoginTimeGMTMin?: number,
         lastLoginTimeGMTMax?: number,
@@ -58,9 +60,9 @@ interface UserEntityFactory{
         lastActiveTimeGMTMax?: number,
         numLimit?: number,
         startPosition?: number
-    ) : PDKInternalDataTypes.SearchResult<PDKAbstractDataTypes.UserEntity>;
+    ) : SearchResult<UserEntity>;
     clearUser(
-        uid?: PDKAbstractDataTypes.UserEntityUID,
+        uid?: UserEntityUID,
         username?: string,
         nickname?: string,
         signature?: string,
@@ -71,7 +73,7 @@ interface UserEntityFactory{
         accountCreateIP?: string,
         accountCreateArea?: countries.CountryCode,
         accountFrozen?: boolean,
-        groupId?: PDKAbstractDataTypes.UserGroupGroupID,
+        groupId?: UserGroupGroupID,
         avatarSalt?: string,
         lastLoginTimeGMTMin?: number,
         lastLoginTimeGMTMax?: number,

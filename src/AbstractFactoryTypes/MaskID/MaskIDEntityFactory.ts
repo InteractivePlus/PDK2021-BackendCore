@@ -1,42 +1,45 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { MaskIDEntity, MaskUID } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/MaskID/MaskIDEntity";
+import { APPUID } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat";
+import { UserEntityUID } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity";
+import { SearchResult } from "@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult";
 
 type MaskIDCreateEntity = {
-    [key in keyof PDKAbstractDataTypes.MaskIDEntity as Exclude<key,'maskUID'>]: PDKAbstractDataTypes.MaskIDEntity[key]
+    [key in keyof MaskIDEntity as Exclude<key,'maskUID'>]: MaskIDEntity[key]
 }
 
 export type {MaskIDCreateEntity};
 
 interface MaskIDEntityFactory{
-    createMaskIDEntity(createEntity : MaskIDCreateEntity) : PDKAbstractDataTypes.MaskIDEntity;
-    getMaskIDEntity(maskUID: PDKAbstractDataTypes.MaskUID) : PDKAbstractDataTypes.MaskIDEntity | undefined;
-    updateMaskIDEntity(maskUID: PDKAbstractDataTypes.MaskUID, maskEntity : PDKAbstractDataTypes.MaskIDEntity, oldMaskEntity?: PDKAbstractDataTypes.MaskIDEntity) : void;
-    deleteMaskIDEntity(maskUID: PDKAbstractDataTypes.MaskUID) : void;
+    createMaskIDEntity(createEntity : MaskIDCreateEntity) : MaskIDEntity;
+    getMaskIDEntity(maskUID: MaskUID) : MaskIDEntity | undefined;
+    updateMaskIDEntity(maskUID: MaskUID, maskEntity : MaskIDEntity, oldMaskEntity?: MaskIDEntity) : void;
+    deleteMaskIDEntity(maskUID: MaskUID) : void;
     
     getMaskIDEntityCount(
-        maskUID?: PDKAbstractDataTypes.MaskUID, 
+        maskUID?: MaskUID, 
         displayName?: string,
-        userUID?: PDKAbstractDataTypes.UserEntityUID, 
-        appUID?: PDKAbstractDataTypes.APPUID,
+        userUID?: UserEntityUID, 
+        appUID?: APPUID,
         createTimeMin?: number,
         createTimeMax?: number
     ) : number;
 
     searchMaskIDEntity(
-        maskUID?: PDKAbstractDataTypes.MaskUID, 
+        maskUID?: MaskUID, 
         displayName?: string,
-        userUID?: PDKAbstractDataTypes.UserEntityUID, 
-        appUID?: PDKAbstractDataTypes.APPUID,
+        userUID?: UserEntityUID, 
+        appUID?: APPUID,
         createTimeMin?: number,
         createTimeMax?: number,
         numLimit?: number,
         startPosition?: number
-    ) : PDKInternalDataTypes.SearchResult<PDKAbstractDataTypes.MaskIDEntity>;
+    ) : SearchResult<MaskIDEntity>;
 
     clearMaskIDEntity(
-        maskUID?: PDKAbstractDataTypes.MaskUID, 
+        maskUID?: MaskUID, 
         displayName?: string,
-        userUID?: PDKAbstractDataTypes.UserEntityUID, 
-        appUID?: PDKAbstractDataTypes.APPUID,
+        userUID?: UserEntityUID, 
+        appUID?: APPUID,
         createTimeMin?: number,
         createTimeMax?: number,
         numLimit?: number,

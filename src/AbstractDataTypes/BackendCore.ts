@@ -1,4 +1,4 @@
-import { AuthorizationCodeEntityFormatSetting } from "../../../pdk2021-common/dist/AbstractDataTypes/ALL";
+import { AuthorizationCodeEntityFormatSetting } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/AuthCode/AuthorizationCodeEntityFormatSetting";
 import { VerificationCodeEntityFactory } from "../AbstractFactoryTypes/Communication/VerificationCode/VerificationCodeEntityFactory";
 import { MaskIDEntityFactory } from "../AbstractFactoryTypes/MaskID/MaskIDEntityFactory";
 import { OAuthTokenFactory } from "../AbstractFactoryTypes/OAuth/Token/OAuthTokenFactory";
@@ -24,6 +24,7 @@ class BackendCore<VeriCodeVerifyInfo, OAuthAccessTokenVerifyInfo, OAuthRefreshTo
     ){
         
     }
+    
 }
 
 export {BackendCore};

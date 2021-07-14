@@ -1,8 +1,11 @@
-import { PDKAbstractDataTypes } from "@interactiveplus/pdk2021-common";
 import { CommunicationContent } from "./Content/CommunicationContent";
 import {locales} from 'i18n-codes-js';
+import { PhoneNumber, UserEntity } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity";
+import { VerificationCodeEntity } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/Communication/VerificationCode/VerificationCodeEntity";
+import { APPEntity } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntity";
+import { MaskIDEntity } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/MaskID/MaskIDEntity";
 
-type CommAddressType = string | PDKAbstractDataTypes.PhoneNumber;
+type CommAddressType = string | PhoneNumber;
 
 export type {CommAddressType};
 
@@ -24,7 +27,7 @@ interface CommunicationSenderInterface<AddressType extends CommAddressType>{
      * @param locale 
      * @throws {PDKSenderServiceError}
      */
-    sendVeriCode(address : AddressType, veriCode : PDKAbstractDataTypes.VerificationCodeEntity<any>, relatedUser?: PDKAbstractDataTypes.UserEntity, relatedAPP?: PDKAbstractDataTypes.APPEntity, relatedMaskID?: PDKAbstractDataTypes.MaskIDEntity, locale?: locales.LocaleCode) : Promise<void>;
+    sendVeriCode(address : AddressType, veriCode : VerificationCodeEntity<any>, relatedUser?: UserEntity, relatedAPP?: APPEntity, relatedMaskID?: MaskIDEntity, locale?: locales.LocaleCode) : Promise<void>;
 }
 
 export type {CommunicationSenderInterface};

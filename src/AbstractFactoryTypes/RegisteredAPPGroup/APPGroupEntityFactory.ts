@@ -1,8 +1,9 @@
-import {PDKAbstractDataTypes, PDKInternalDataTypes} from '@interactiveplus/pdk2021-common';
+import { APPGroupEntity, APPGroupID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPPGroup/APPGroupEntity';
+import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
 
 type APPGroupCreateInfo = {
-    [key in keyof PDKAbstractDataTypes.APPGroupEntity]: PDKAbstractDataTypes.APPGroupEntity[key]
+    [key in keyof APPGroupEntity]: APPGroupEntity[key]
 }
 
 export type {APPGroupCreateInfo};
@@ -10,27 +11,27 @@ export type {APPGroupCreateInfo};
 interface APPGroupEntityFactory{
     getAPPSystemSetting() : BackendAPPSystemSetting;
 
-    createAPPGroupEntity(createInfo: APPGroupCreateInfo) : PDKAbstractDataTypes.APPGroupEntity;
-    getAPPGroupEntity(appGroupId : PDKAbstractDataTypes.APPGroupID) : PDKAbstractDataTypes.APPGroupEntity | undefined;
-    updateAPPGroupEntity(appGroupId : PDKAbstractDataTypes.APPGroupID, appGroupEntity : PDKAbstractDataTypes.APPGroupEntity, oldAPPGroupEntity?: PDKAbstractDataTypes.APPGroupEntity) : void;
-    deleteAPPGroupEntity(appGroupId : PDKAbstractDataTypes.APPGroupID) : void;
+    createAPPGroupEntity(createInfo: APPGroupCreateInfo) : APPGroupEntity;
+    getAPPGroupEntity(appGroupId : APPGroupID) : APPGroupEntity | undefined;
+    updateAPPGroupEntity(appGroupId : APPGroupID, appGroupEntity : APPGroupEntity, oldAPPGroupEntity?: APPGroupEntity) : void;
+    deleteAPPGroupEntity(appGroupId : APPGroupID) : void;
 
     getAPPGroupEntityCount(
-        appGroupId?: PDKAbstractDataTypes.APPGroupID,
+        appGroupId?: APPGroupID,
         nickname?: string,
         description?: string,
         avatarSalt?: string
     ) : number;
     searchAPPGroupEntity(
-        appGroupId?: PDKAbstractDataTypes.APPGroupID,
+        appGroupId?: APPGroupID,
         nickname?: string,
         description?: string,
         avatarSalt?: string,
         numLimit?: number,
         startPosition?: number
-    ) : PDKInternalDataTypes.SearchResult<PDKAbstractDataTypes.APPGroupEntity>;
+    ) : SearchResult<APPGroupEntity>;
     clearAPPGroupEntity(
-        appGroupId?: PDKAbstractDataTypes.APPGroupID,
+        appGroupId?: APPGroupID,
         nickname?: string,
         description?: string,
         avatarSalt?: string,
