@@ -1,6 +1,7 @@
 import { APPGroupEntity, APPGroupID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPPGroup/APPGroupEntity';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
+import { BaseFactory } from '../BaseFactory';
 
 type APPGroupCreateInfo = {
     [key in keyof APPGroupEntity]: APPGroupEntity[key]
@@ -8,7 +9,7 @@ type APPGroupCreateInfo = {
 
 export type {APPGroupCreateInfo};
 
-interface APPGroupEntityFactory{
+interface APPGroupEntityFactory extends BaseFactory{
     getAPPSystemSetting() : BackendAPPSystemSetting;
 
     createAPPGroupEntity(createInfo: APPGroupCreateInfo) : Promise<APPGroupEntity>;

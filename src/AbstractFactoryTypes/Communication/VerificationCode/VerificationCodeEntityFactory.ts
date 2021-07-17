@@ -6,6 +6,7 @@ import { APPClientID, APPUID } from "@interactiveplus/pdk2021-common/dist/Abstra
 import { UserEntityUID } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity";
 import { SearchResult } from "@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult";
 import { BackendCommunicationSystemSetting } from "../../../AbstractDataTypes/SystemSetting/BackendCommunicationSystemSetting";
+import { BaseFactory } from "../../BaseFactory";
 
 type VerificationCodeCreateEntity<ParamType> = {
     [key in keyof VerificationCodeEntity<ParamType> as Exclude<key,'veriCodeID'>]: VerificationCodeEntity<ParamType>[key]
@@ -13,7 +14,7 @@ type VerificationCodeCreateEntity<ParamType> = {
 
 export type {VerificationCodeCreateEntity};
 
-interface VerificationCodeEntityFactory<VerifyCodeInfo>{
+interface VerificationCodeEntityFactory<VerifyCodeInfo> extends BaseFactory{
     getCommunicationSystemSetting() : BackendCommunicationSystemSetting;
 
     createVerificationCode<ParamType>(createInfo: VerificationCodeCreateEntity<ParamType>) : Promise<VerificationCodeEntity<ParamType>>;

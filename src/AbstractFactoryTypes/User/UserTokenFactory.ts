@@ -2,6 +2,7 @@ import { BackendUserSystemSetting } from '../../AbstractDataTypes/SystemSetting/
 import { UserAccessToken, UserRefreshToken, UserToken } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserToken';
 import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
+import { BaseFactory } from '../BaseFactory';
 
 type UserTokenCreateInfo = {
     [key in keyof UserToken as Exclude<key,'accessToken'|'refreshToken'>]: UserToken[key]
@@ -9,7 +10,7 @@ type UserTokenCreateInfo = {
 
 export type {UserTokenCreateInfo};
 
-interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
+interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory{
     getUserSystemSetting() : BackendUserSystemSetting;
 
     createUserToken(createInfo : UserTokenCreateInfo) : Promise<UserToken>;

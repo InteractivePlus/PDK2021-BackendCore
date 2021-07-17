@@ -4,6 +4,7 @@ import { APPClientID, APPClientSecret, APPUID } from '@interactiveplus/pdk2021-c
 import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
+import { BaseFactory } from '../BaseFactory';
 
 type APPEntityCreateInfo = {
     [key in keyof APPEntity as Exclude<key,'appuid'>]: APPEntity[key]
@@ -11,7 +12,7 @@ type APPEntityCreateInfo = {
 
 export type {APPEntityCreateInfo};
 
-interface APPEntityFactory{
+interface APPEntityFactory extends BaseFactory{
     getAPPSystemSetting() : BackendAPPSystemSetting;
 
     createAPPEntity(createInfo : APPEntityCreateInfo) : Promise<APPEntity>;

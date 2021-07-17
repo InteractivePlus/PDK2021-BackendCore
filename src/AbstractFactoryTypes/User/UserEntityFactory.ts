@@ -3,6 +3,7 @@ import { PhoneNumber, UserEntity, UserEntityUID } from '@interactiveplus/pdk2021
 import { UserGroupGroupID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/UserGroup/UserGroup';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendUserSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendUserSystemSetting';
+import { BaseFactory } from '../BaseFactory';
 
 type UserEntityCreateInfo = {
     [key in keyof UserEntity as Exclude<key,'uid'>]: UserEntity[key]
@@ -10,7 +11,7 @@ type UserEntityCreateInfo = {
 
 export type {UserEntityCreateInfo};
 
-interface UserEntityFactory{
+interface UserEntityFactory extends BaseFactory{
     getUserSystemSetting() : BackendUserSystemSetting;
 
     createUser(createInfo : UserEntityCreateInfo) : Promise<UserEntity>;

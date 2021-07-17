@@ -6,6 +6,7 @@ import { OAuthScope } from '@interactiveplus/pdk2021-common/dist/AbstractDataTyp
 import { APPClientID, APPUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendOAuthSystemSetting } from '../../../AbstractDataTypes/SystemSetting/BackendOAuthSystemSetting';
+import { BaseFactory } from '../../BaseFactory';
 
 type AuthorizationCodeCreateEntity = {
     [key in keyof AuthorizationCodeEntity as Exclude<key,'authCode'>]: AuthorizationCodeEntity[key]
@@ -13,7 +14,7 @@ type AuthorizationCodeCreateEntity = {
 
 export type {AuthorizationCodeCreateEntity};
 
-interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo>{
+interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo> extends BaseFactory{
     getOAuthSystemSetting() : BackendOAuthSystemSetting;
     
     createAuthCode(authCodeInfo : AuthorizationCodeCreateEntity) : Promise<AuthorizationCodeEntity>;

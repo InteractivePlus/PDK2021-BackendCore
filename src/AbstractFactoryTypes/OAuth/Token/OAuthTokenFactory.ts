@@ -4,13 +4,14 @@ import { APPClientID, APPUID } from '@interactiveplus/pdk2021-common/dist/Abstra
 import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendOAuthSystemSetting } from '../../../AbstractDataTypes/SystemSetting/BackendOAuthSystemSetting';
+import { BaseFactory } from '../../BaseFactory';
 type OAuthTokenCreateInfo = {
     [key in keyof OAuthToken as Exclude<key,'accessToken'|'refreshToken'>]: OAuthToken[key]
 }
 
 export type {OAuthTokenCreateInfo};
 
-interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
+interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory{
     getOAuthSystemSetting() : BackendOAuthSystemSetting;
     
     createOAuthToken(createInfo: OAuthTokenCreateInfo) : Promise<OAuthToken>;

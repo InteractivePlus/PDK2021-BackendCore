@@ -2,6 +2,7 @@ import { MaskIDEntity, MaskUID } from "@interactiveplus/pdk2021-common/dist/Abst
 import { APPUID } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat";
 import { UserEntityUID } from "@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity";
 import { SearchResult } from "@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult";
+import { BaseFactory } from "../BaseFactory";
 
 type MaskIDCreateEntity = {
     [key in keyof MaskIDEntity as Exclude<key,'maskUID'>]: MaskIDEntity[key]
@@ -9,7 +10,7 @@ type MaskIDCreateEntity = {
 
 export type {MaskIDCreateEntity};
 
-interface MaskIDEntityFactory{
+interface MaskIDEntityFactory extends BaseFactory{
     createMaskIDEntity(createEntity : MaskIDCreateEntity) : Promise<MaskIDEntity>;
     getMaskIDEntity(maskUID: MaskUID) : Promise<MaskIDEntity | undefined>;
     updateMaskIDEntity(maskUID: MaskUID, maskEntity : MaskIDEntity, oldMaskEntity?: MaskIDEntity) : Promise<void>;
