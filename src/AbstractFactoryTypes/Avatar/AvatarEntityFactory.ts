@@ -7,10 +7,10 @@ type AvatarCreateEntity = {
 export type {AvatarCreateEntity};
 
 interface AvatarEntityFactory{
-    getAvatarBySalt(salt: string) : AvatarEntity | undefined,
-    uploadNewAvatar(createInfo: AvatarCreateEntity) : AvatarEntity;
-    checkAvatarExists(salt: string) : boolean,
-    updateAvatar(salt : string, avatarEntity : AvatarEntity, oldAvatarEntity?: AvatarEntity) : void;
+    getAvatarBySalt(salt: string) : Promise<AvatarEntity | undefined>,
+    uploadNewAvatar(createInfo: AvatarCreateEntity) : Promise<AvatarEntity>;
+    checkAvatarExists(salt: string) : Promise<boolean>,
+    updateAvatar(salt : string, avatarEntity : AvatarEntity, oldAvatarEntity?: AvatarEntity) : Promise<void>;
 }
 
 export type {AvatarEntityFactory};

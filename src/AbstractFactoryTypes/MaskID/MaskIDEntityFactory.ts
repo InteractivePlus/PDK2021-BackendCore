@@ -10,10 +10,10 @@ type MaskIDCreateEntity = {
 export type {MaskIDCreateEntity};
 
 interface MaskIDEntityFactory{
-    createMaskIDEntity(createEntity : MaskIDCreateEntity) : MaskIDEntity;
-    getMaskIDEntity(maskUID: MaskUID) : MaskIDEntity | undefined;
-    updateMaskIDEntity(maskUID: MaskUID, maskEntity : MaskIDEntity, oldMaskEntity?: MaskIDEntity) : void;
-    deleteMaskIDEntity(maskUID: MaskUID) : void;
+    createMaskIDEntity(createEntity : MaskIDCreateEntity) : Promise<MaskIDEntity>;
+    getMaskIDEntity(maskUID: MaskUID) : Promise<MaskIDEntity | undefined>;
+    updateMaskIDEntity(maskUID: MaskUID, maskEntity : MaskIDEntity, oldMaskEntity?: MaskIDEntity) : Promise<void>;
+    deleteMaskIDEntity(maskUID: MaskUID) : Promise<void>;
     
     getMaskIDEntityCount(
         maskUID?: MaskUID, 
@@ -22,7 +22,7 @@ interface MaskIDEntityFactory{
         appUID?: APPUID,
         createTimeMin?: number,
         createTimeMax?: number
-    ) : number;
+    ) : Promise<number>;
 
     searchMaskIDEntity(
         maskUID?: MaskUID, 
@@ -33,7 +33,7 @@ interface MaskIDEntityFactory{
         createTimeMax?: number,
         numLimit?: number,
         startPosition?: number
-    ) : SearchResult<MaskIDEntity>;
+    ) : Promise<SearchResult<MaskIDEntity>>;
 
     clearMaskIDEntity(
         maskUID?: MaskUID, 
@@ -44,7 +44,7 @@ interface MaskIDEntityFactory{
         createTimeMax?: number,
         numLimit?: number,
         startPosition?: number
-    ) : void;
+    ) : Promise<void>;
 }
 
 export type {MaskIDEntityFactory};

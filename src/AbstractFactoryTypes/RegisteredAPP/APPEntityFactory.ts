@@ -14,14 +14,14 @@ export type {APPEntityCreateInfo};
 interface APPEntityFactory{
     getAPPSystemSetting() : BackendAPPSystemSetting;
 
-    createAPPEntity(createInfo : APPEntityCreateInfo) : APPEntity;
+    createAPPEntity(createInfo : APPEntityCreateInfo) : Promise<APPEntity>;
     
-    verifyAPPEntityCredential(clientID : APPClientID, currentGrantType : OAuthAuthorizationMethod, clientSecret?: APPClientSecret) : boolean;
+    verifyAPPEntityCredential(clientID : APPClientID, currentGrantType : OAuthAuthorizationMethod, clientSecret?: APPClientSecret) : Promise<boolean>;
 
-    getAPPEntity(appuid : APPUID) : APPEntity | undefined;
-    getAPPEntityByClientID(clientID : APPClientID) : APPEntity | undefined;
-    updateAPPEntity(appuid : APPUID, appEntity : APPEntity, oldAPPEntity?: APPEntity) : void;
-    deleteAPPEntity(appuid : APPUID) : void;
+    getAPPEntity(appuid : APPUID) : Promise<APPEntity | undefined>;
+    getAPPEntityByClientID(clientID : APPClientID) : Promise<APPEntity | undefined>;
+    updateAPPEntity(appuid : APPUID, appEntity : APPEntity, oldAPPEntity?: APPEntity) : Promise<void>;
+    deleteAPPEntity(appuid : APPUID) : Promise<void>;
 
     getAPPEntityCount(
         appuid?: APPUID,
@@ -35,7 +35,7 @@ interface APPEntityFactory{
         lastModifiedTimeGMTMax?: number,
         avatarSalt?: string,
         appGroupId?: string
-    ): number;
+    ): Promise<number>;
     searchAPPEntity(
         appuid?: APPUID,
         clientID?: APPClientID,
@@ -50,7 +50,7 @@ interface APPEntityFactory{
         appGroupId?: string,
         numLimit?: number,
         startPosition?: number
-    ) : SearchResult<APPEntity>;
+    ) : Promise<SearchResult<APPEntity>>;
     clearAPPEntity(
         appuid?: APPUID,
         clientID?: APPClientID,
@@ -65,7 +65,7 @@ interface APPEntityFactory{
         appGroupId?: string,
         numLimit?: number,
         startPosition?: number
-    ) : void;
+    ) : Promise<void>;
 }
 
 export type {APPEntityFactory};

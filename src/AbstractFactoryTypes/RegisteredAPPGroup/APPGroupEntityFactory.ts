@@ -11,9 +11,9 @@ export type {APPGroupCreateInfo};
 interface APPGroupEntityFactory{
     getAPPSystemSetting() : BackendAPPSystemSetting;
 
-    createAPPGroupEntity(createInfo: APPGroupCreateInfo) : APPGroupEntity;
-    getAPPGroupEntity(appGroupId : APPGroupID) : APPGroupEntity | undefined;
-    updateAPPGroupEntity(appGroupId : APPGroupID, appGroupEntity : APPGroupEntity, oldAPPGroupEntity?: APPGroupEntity) : void;
+    createAPPGroupEntity(createInfo: APPGroupCreateInfo) : Promise<APPGroupEntity>;
+    getAPPGroupEntity(appGroupId : APPGroupID) : Promise<APPGroupEntity | undefined>;
+    updateAPPGroupEntity(appGroupId : APPGroupID, appGroupEntity : APPGroupEntity, oldAPPGroupEntity?: APPGroupEntity) : Promise<void>;
     deleteAPPGroupEntity(appGroupId : APPGroupID) : void;
 
     getAPPGroupEntityCount(
@@ -21,7 +21,7 @@ interface APPGroupEntityFactory{
         nickname?: string,
         description?: string,
         avatarSalt?: string
-    ) : number;
+    ) : Promise<number>;
     searchAPPGroupEntity(
         appGroupId?: APPGroupID,
         nickname?: string,
@@ -29,7 +29,7 @@ interface APPGroupEntityFactory{
         avatarSalt?: string,
         numLimit?: number,
         startPosition?: number
-    ) : SearchResult<APPGroupEntity>;
+    ) : Promise<SearchResult<APPGroupEntity>>;
     clearAPPGroupEntity(
         appGroupId?: APPGroupID,
         nickname?: string,
@@ -37,7 +37,7 @@ interface APPGroupEntityFactory{
         avatarSalt?: string,
         numLimit?: number,
         startPosition?: number
-    ) : void;
+    ) : Promise<void>;
 }
 
 export type {APPGroupEntityFactory};

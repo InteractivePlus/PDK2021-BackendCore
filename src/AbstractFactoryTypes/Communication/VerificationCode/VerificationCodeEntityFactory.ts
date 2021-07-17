@@ -16,24 +16,24 @@ export type {VerificationCodeCreateEntity};
 interface VerificationCodeEntityFactory<VerifyCodeInfo>{
     getCommunicationSystemSetting() : BackendCommunicationSystemSetting;
 
-    createVerificationCode<ParamType>(createInfo: VerificationCodeCreateEntity<ParamType>) : VerificationCodeEntity<ParamType>;
-    revokeCreatedVerificationCode<ParamType>(createdVeriCodeEntity : VerificationCodeEntity<ParamType>) : void;
+    createVerificationCode<ParamType>(createInfo: VerificationCodeCreateEntity<ParamType>) : Promise<VerificationCodeEntity<ParamType>>;
+    revokeCreatedVerificationCode<ParamType>(createdVeriCodeEntity : VerificationCodeEntity<ParamType>) : Promise<void>;
     
-    verifyVerificationCode(verifyInfo : VerifyCodeInfo) : boolean;
-    verifyAndUseVerificationCode(verifyInfo : VerifyCodeInfo) : boolean;
+    verifyVerificationCode(verifyInfo : VerifyCodeInfo) : Promise<boolean>;
+    verifyAndUseVerificationCode(verifyInfo : VerifyCodeInfo) : Promise<boolean>;
     /**
      * Check if verifyInfo is in correct format
      * @param verifyInfo struct passed by client
      * @returns {VerifyCodeInfo} Parsed CodeInfo
      * @throws {PDKRequestParamFormatError}
      */
-    checkVerifyInfoValid(verifyInfo: any) : VerifyCodeInfo;
+    checkVerifyInfoValid(verifyInfo: any) : Promise<VerifyCodeInfo>;
     
-    getVerificationCode?(veriCodeID : VeriCodeEntityID) : VerificationCodeEntity<unknown> | undefined;
-    updateVerificationCode?<ParamType>(veriCodeID: VeriCodeEntityID, veriCode : VerificationCodeEntity<ParamType>, oldVeriCode?: VerificationCodeEntity<ParamType>) : void;
-    deleteVerificationCode?(veriCodeID: VeriCodeEntityID) : void;
+    getVerificationCode?(veriCodeID : VeriCodeEntityID) : Promise<VerificationCodeEntity<unknown> | undefined>;
+    updateVerificationCode?<ParamType>(veriCodeID: VeriCodeEntityID, veriCode : VerificationCodeEntity<ParamType>, oldVeriCode?: VerificationCodeEntity<ParamType>) : Promise<void>;
+    deleteVerificationCode?(veriCodeID: VeriCodeEntityID) : Promise<void>;
     
-    checkVerificationCodeExist?(veriCodeID: VeriCodeEntityID) : boolean;
+    checkVerificationCodeExist?(veriCodeID: VeriCodeEntityID) : Promise<boolean>;
     
     getVerificationCodeCont?(
         veriCodeID?: VeriCodeEntityID,
@@ -51,7 +51,7 @@ interface VerificationCodeEntityFactory<VerifyCodeInfo>{
         useScope?: string | number,
         used?: boolean,
         sentMethod?: CommunicationMethodWithNone
-    ) : number;
+    ) : Promise<number>;
 
     searchVerificationCode?(
         veriCodeID?: VeriCodeEntityID,
@@ -71,7 +71,7 @@ interface VerificationCodeEntityFactory<VerifyCodeInfo>{
         sentMethod?: CommunicationMethodWithNone,
         numLimit?: number,
         startPosition?: number
-    ) : SearchResult<VerificationCodeEntity<unknown>>;
+    ) : Promise<SearchResult<VerificationCodeEntity<unknown>>>;
     
     clearVerificationCode?(
         veriCodeID?: VeriCodeEntityID,
@@ -91,7 +91,7 @@ interface VerificationCodeEntityFactory<VerifyCodeInfo>{
         sentMethod?: CommunicationMethodWithNone,
         numLimit?: number,
         startPosition?: number
-    ) : SearchResult<VerificationCodeEntity<unknown>>
+    ) : Promise<SearchResult<VerificationCodeEntity<unknown>>>;
 }
 
 export type {VerificationCodeEntityFactory};

@@ -9,18 +9,18 @@ export type {UserGroupCreateInfo};
 interface UserGroupFactory{
     getUserSystemSetting() : BackendUserSystemSetting;
     
-    createUserGroup(createInfo : UserGroupCreateInfo) : UserGroup;
+    createUserGroup(createInfo : UserGroupCreateInfo) : Promise<UserGroup>;
 
-    getUserGroup(groupId : UserGroupGroupID) : UserGroup | undefined;
-    updateUserGroup(groupId : UserGroupGroupID, groupEntity : UserGroup, oldGroupEntity?: UserGroup) : void;
-    deleteUserGroup(groupId : UserGroupGroupID) : void;
+    getUserGroup(groupId : UserGroupGroupID) : Promise<UserGroup | undefined>;
+    updateUserGroup(groupId : UserGroupGroupID, groupEntity : UserGroup, oldGroupEntity?: UserGroup) : Promise<void>;
+    deleteUserGroup(groupId : UserGroupGroupID) : Promise<void>;
 
     getUserGroupCount(
         groupId?: UserGroupGroupID,
         nickname?: string,
         description?: string,
         avatarSalt?: string
-    ) : number;
+    ) : Promise<number>;
     searchUserGroup(
         groupId?: UserGroupGroupID,
         nickname?: string,
@@ -28,7 +28,7 @@ interface UserGroupFactory{
         avatarSalt?: string,
         numLimit?: number,
         startPosition?: number
-    ) : SearchResult<UserGroup>;
+    ) : Promise<SearchResult<UserGroup>>;
     clearUserGroup(
         groupId?: UserGroupGroupID,
         nickname?: string,
@@ -36,7 +36,7 @@ interface UserGroupFactory{
         avatarSalt?: string,
         numLimit?: number,
         startPosition?: number
-    ) : void;
+    ) : Promise<void>;
 }
 
 export type {UserGroupFactory};

@@ -12,34 +12,34 @@ export type {UserTokenCreateInfo};
 interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
     getUserSystemSetting() : BackendUserSystemSetting;
 
-    createUserToken(createInfo : UserTokenCreateInfo) : UserToken;
+    createUserToken(createInfo : UserTokenCreateInfo) : Promise<UserToken>;
 
-    verifyUserAccessToken(verifyInfo : VerifyAccessTokenInfo) : boolean;
-    setUserAccessTokenInvalid?(accessToken : UserAccessToken) : void;
+    verifyUserAccessToken(verifyInfo : VerifyAccessTokenInfo) : Promise<boolean>;
+    setUserAccessTokenInvalid?(accessToken : UserAccessToken) : Promise<void>;
     /**
      * Check if verifyInfo for verifying access token is in correct format
      * @param verifyInfo struct passed by client
      * @returns {VerifyAccessTokenInfo} Parsed CodeInfo
      * @throws {PDKRequestParamFormatError}
      */
-    checkVerifyAccessTokenInfoValid(verifyInfo: any) : VerifyAccessTokenInfo;
+    checkVerifyAccessTokenInfoValid(verifyInfo: any) : Promise<VerifyAccessTokenInfo>;
 
-    verifyUserRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
-    verifyAndUseUserRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
+    verifyUserRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : Promise<boolean>;
+    verifyAndUseUserRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : Promise<boolean>;
     /**
      * Check if verifyInfo for verifying refresh token is in correct format
      * @param verifyInfo struct passed by client
      * @returns {VerifyRefreshTokenInfo} Parsed CodeInfo
      * @throws {PDKRequestParamFormatError}
      */
-     checkVerifyRefreshTokenInfoValid(verifyInfo: any) : VerifyRefreshTokenInfo;
+    checkVerifyRefreshTokenInfoValid(verifyInfo: any) : Promise<VerifyRefreshTokenInfo>;
 
-    getUserToken?(accessToken : UserAccessToken) : UserToken | undefined;
-    getUserTokenByRefreshToken?(refreshToken : UserRefreshToken) : UserToken | undefined;
-    updateUserToken?(accessToken : UserAccessToken, tokenEntity : UserToken, oldTokenEntity?: UserToken) : void;
-    updateUserTokenByRefreshToken?(refreshToken : UserRefreshToken, tokenEntity : UserToken, oldTokenEntity?: UserToken) : void;
-    deleteUserToken?(accessToken : UserAccessToken) : void;
-    deleteUserTokenByRefreshToken?(refreshToken : UserRefreshToken) : void;
+    getUserToken?(accessToken : UserAccessToken) : Promise<UserToken | undefined>;
+    getUserTokenByRefreshToken?(refreshToken : UserRefreshToken) : Promise<UserToken | undefined>;
+    updateUserToken?(accessToken : UserAccessToken, tokenEntity : UserToken, oldTokenEntity?: UserToken) : Promise<void>;
+    updateUserTokenByRefreshToken?(refreshToken : UserRefreshToken, tokenEntity : UserToken, oldTokenEntity?: UserToken) : Promise<void>;
+    deleteUserToken?(accessToken : UserAccessToken) : Promise<void>;
+    deleteUserTokenByRefreshToken?(refreshToken : UserRefreshToken) : Promise<void>;
 
     getUserTokenCount?(
         userId?: UserEntityUID,
@@ -57,7 +57,7 @@ interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
         invalidDueToRefresh?: boolean,
         issueRemoteAddr?: string,
         renewRemoteAddr?: string
-    ) : number;
+    ) : Promise<number>;
     searchUserToken(
         userId?: UserEntityUID,
         accessToken?: UserAccessToken,
@@ -76,7 +76,7 @@ interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
         renewRemoteAddr?: string,
         numLimit?: number,
         startPosition?: number
-    ) : SearchResult<UserToken>;
+    ) : Promise<SearchResult<UserToken>>;
     clearUserToken(
         userId?: UserEntityUID,
         accessToken?: UserAccessToken,
@@ -95,6 +95,6 @@ interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
         renewRemoteAddr?: string,
         numLimit?:number,
         startPosition?:number
-    ) : void;
+    ) : Promise<void>;
 }
 export type {UserTokenFactory};

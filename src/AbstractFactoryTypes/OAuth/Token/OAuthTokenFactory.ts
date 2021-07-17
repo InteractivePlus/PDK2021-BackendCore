@@ -13,20 +13,20 @@ export type {OAuthTokenCreateInfo};
 interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
     getOAuthSystemSetting() : BackendOAuthSystemSetting;
     
-    createOAuthToken(createInfo: OAuthTokenCreateInfo) : OAuthToken;
+    createOAuthToken(createInfo: OAuthTokenCreateInfo) : Promise<OAuthToken>;
 
-    verifyOAuthAccessToken(verifyInfo : VerifyAccessTokenInfo) : boolean;
-    setOAuthAcessTokenInvalid?(accessToken : OAuthAccessToken) : void;
+    verifyOAuthAccessToken(verifyInfo : VerifyAccessTokenInfo) : Promise<boolean>;
+    setOAuthAcessTokenInvalid?(accessToken : OAuthAccessToken) : Promise<void>;
 
-    verifyOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
-    verifyAndUseOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : boolean;
+    verifyOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : Promise<boolean>;
+    verifyAndUseOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : Promise<boolean>;
     /**
      * Check if verifyInfo for verifying access code is in correct format
      * @param verifyInfo struct passed by client
      * @returns {VerifyRefreshTokenInfo} Parsed CodeInfo
      * @throws {PDKRequestParamFormatError}
      */
-    checkVerifyAccessTokenInfoValid(verifyInfo: any) : VerifyAccessTokenInfo;
+    checkVerifyAccessTokenInfoValid(verifyInfo: any) : Promise<VerifyAccessTokenInfo>;
 
     /**
      * Check if verifyInfo for verifying refresh code is in correct format
@@ -34,14 +34,14 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
      * @returns {VerifyCodeInfo} Parsed CodeInfo
      * @throws {PDKRequestParamFormatError}
      */
-     checkVerifyRefreshTokenInfoValid(verifyInfo: any) : VerifyRefreshTokenInfo;
+     checkVerifyRefreshTokenInfoValid(verifyInfo: any) : Promise<VerifyRefreshTokenInfo>;
     
-    getOAuthToken?(accessToken : OAuthAccessToken) : OAuthToken | undefined;
-    getOAuthTokenByRefreshToken?(refreshToken : OAuthRefreshToken) : OAuthToken | undefined;
-    updateOAuthToken?(accessToken : OAuthAccessToken, oAuthToken : OAuthToken, oldOAuthToken?: OAuthToken) : void;
-    updateOAuthTokenByRefreshToken?(refreshToken: OAuthRefreshToken, oAuthToken : OAuthToken, oldOAuthToken?: OAuthToken) : void;
-    deleteOAuthToken?(accessToken : OAuthAccessToken) : void;
-    deleteOAuthTokenByRefreshToken?(refreshToken : OAuthRefreshToken) : void;
+    getOAuthToken?(accessToken : OAuthAccessToken) : Promise<OAuthToken | undefined>;
+    getOAuthTokenByRefreshToken?(refreshToken : OAuthRefreshToken) : Promise<OAuthToken | undefined>;
+    updateOAuthToken?(accessToken : OAuthAccessToken, oAuthToken : OAuthToken, oldOAuthToken?: OAuthToken) : Promise<void>;
+    updateOAuthTokenByRefreshToken?(refreshToken: OAuthRefreshToken, oAuthToken : OAuthToken, oldOAuthToken?: OAuthToken) : Promise<void>;
+    deleteOAuthToken?(accessToken : OAuthAccessToken) : Promise<void>;
+    deleteOAuthTokenByRefreshToken?(refreshToken : OAuthRefreshToken) : Promise<void>;
 
     getOAuthTokenCount?(
         maskUID?: MaskUID,
@@ -62,7 +62,7 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
         invalidDueToRefresh?: boolean,
         useSideRemoteAddr?: string,
         appSideRemoteAddr?: string,
-    ) : number;
+    ) : Promise<number>;
     searchOAuthToken?(
         maskUID?: MaskUID,
         userUID?: UserEntityUID,
@@ -84,7 +84,7 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
         appSideRemoteAddr?: string,
         numLimit?: number,
         startPosition?: number
-     ) : SearchResult<OAuthToken>;
+     ) : Promise<SearchResult<OAuthToken>>;
     
      clearOAuthToken?(
         maskUID?: MaskUID,
@@ -107,7 +107,7 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo>{
         appSideRemoteAddr?: string,
         numLimit?: number,
         startPosition?: number
-     ) : void;
+     ) : Promise<void>;
 }
 
 export type {OAuthTokenFactory};

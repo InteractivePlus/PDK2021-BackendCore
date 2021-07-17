@@ -13,13 +13,13 @@ export type {UserEntityCreateInfo};
 interface UserEntityFactory{
     getUserSystemSetting() : BackendUserSystemSetting;
 
-    createUser(createInfo : UserEntityCreateInfo) : UserEntity;
-    getUser(uid : UserEntityUID) : UserEntity | undefined;
-    getUserByUsername(username : string) : UserEntity | undefined;
-    getUserByEmail(email : string) : UserEntity | undefined;
-    getUserByPhoneNum(phoneNum : PhoneNumber) : UserEntity | undefined;
-    updateUser(uid : UserEntityUID, userEntity : UserEntity, oldUserEntity?: UserEntity) : void;
-    deleteUser(uid : UserEntityUID) : void;
+    createUser(createInfo : UserEntityCreateInfo) : Promise<UserEntity>;
+    getUser(uid : UserEntityUID) : Promise<UserEntity | undefined>;
+    getUserByUsername(username : string) : Promise<UserEntity | undefined>;
+    getUserByEmail(email : string) : Promise<UserEntity | undefined>;
+    getUserByPhoneNum(phoneNum : PhoneNumber) : Promise<UserEntity | undefined>;
+    updateUser(uid : UserEntityUID, userEntity : UserEntity, oldUserEntity?: UserEntity) : Promise<void>;
+    deleteUser(uid : UserEntityUID) : Promise<void>;
 
     getUserCount(
         uid?: UserEntityUID,
@@ -39,7 +39,7 @@ interface UserEntityFactory{
         lastLoginTimeGMTMax?: number,
         lastActiveTimeGMTMin?: number,
         lastActiveTimeGMTMax?: number
-    ) : number;
+    ) : Promise<number>;
     searchUser(
         uid?: UserEntityUID,
         username?: string,
@@ -60,7 +60,7 @@ interface UserEntityFactory{
         lastActiveTimeGMTMax?: number,
         numLimit?: number,
         startPosition?: number
-    ) : SearchResult<UserEntity>;
+    ) : Promise<SearchResult<UserEntity>>;
     clearUser(
         uid?: UserEntityUID,
         username?: string,
@@ -81,7 +81,7 @@ interface UserEntityFactory{
         lastActiveTimeGMTMax?: number,
         numLimit?: number,
         startPosition?: number
-    ) : void;
+    ) : Promise<void>;
 }
 
 export type {UserEntityFactory}

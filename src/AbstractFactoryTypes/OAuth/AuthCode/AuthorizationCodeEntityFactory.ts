@@ -16,16 +16,16 @@ export type {AuthorizationCodeCreateEntity};
 interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo>{
     getOAuthSystemSetting() : BackendOAuthSystemSetting;
     
-    createAuthCode(authCodeInfo : AuthorizationCodeCreateEntity) : AuthorizationCodeEntity;
+    createAuthCode(authCodeInfo : AuthorizationCodeCreateEntity) : Promise<AuthorizationCodeEntity>;
     
-    verifyAuthCode(verifyInfo : VerifyAuthCodeInfo) : boolean;
-    verifyAndUseAuthCode(verifyInfo : VerifyAuthCodeInfo) : boolean;
+    verifyAuthCode(verifyInfo : VerifyAuthCodeInfo) : Promise<boolean>;
+    verifyAndUseAuthCode(verifyInfo : VerifyAuthCodeInfo) : Promise<boolean>;
 
-    getAuthorizationCode?(authCode : string) : AuthorizationCodeEntity | undefined;
-    updateAuthorizationCode?(authCode : string, authCodeEntity : AuthorizationCodeEntity, oldAuthCodeEntity?: AuthorizationCodeEntity) : void;
-    deleteAuthorizationCode?(authCode : string) : void;
+    getAuthorizationCode?(authCode : string) : Promise<AuthorizationCodeEntity | undefined>;
+    updateAuthorizationCode?(authCode : string, authCodeEntity : AuthorizationCodeEntity, oldAuthCodeEntity?: AuthorizationCodeEntity) : Promise<void>;
+    deleteAuthorizationCode?(authCode : string) : Promise<void>;
 
-    checkAuthorizationCodeExist?(authCode : string) : boolean;
+    checkAuthorizationCodeExist?(authCode : string) : Promise<boolean>;
     getAuthorizationCodeCount?(
         authCode?: string,
         authMethod?: OAuthAuthorizationMethod,
@@ -41,7 +41,7 @@ interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo>{
         used?: boolean,
         scopes?: OAuthScope[],
         codeChallenge?: string
-    ) : number;
+    ) : Promise<number>;
     searchAuthorizationCode?(
         authCode?: string,
         authMethod?: OAuthAuthorizationMethod,
@@ -59,7 +59,7 @@ interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo>{
         codeChallenge?: string,
         numLimit?: number,
         startPosition?: number
-    ) : SearchResult<AuthorizationCodeEntity>;
+    ) : Promise<SearchResult<AuthorizationCodeEntity>>;
     clearAuthorizationCode?(
         authCode?: string,
         authMethod?: OAuthAuthorizationMethod,
@@ -77,7 +77,7 @@ interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo>{
         codeChallenge?: string,
         numLimit?: number,
         startPosition?: number
-    ) : void;
+    ) : Promise<void>;
 }
 
 export type {AuthorizationCodeEntityFactory};
