@@ -12,7 +12,7 @@ interface BackendAPI<ParamType extends {}, ReturnDataType extends {}, PossibleEr
      * @param backendCore core library received
      * @throws {PossibleErrorTypes} error types
      */
-    apiFunction<BackendCoreType extends BackendCore<any,any,any,any,any>>(params : ParamType, backendCore : BackendCoreType) : ReturnDataType,
+    apiFunction<BackendCoreType extends BackendCore<any,any,any,any,any>>(params : ParamType, backendCore : BackendCoreType) : Promise<ReturnDataType>,
     
     
     additionalParamCheck?: (params: any) => {succeed: boolean, errorParams: (keyof ParamType)[]}
@@ -26,13 +26,13 @@ interface BackendServerReturnType<ParamType extends {},ReturnDataType extends {}
 
 export type {BackendServerReturnType};
 
-function processAPIRequest<ParamType extends {}, ReturnDataType extends {}, PossibleErrorTypes extends PDKPossibleServerReturnErrTypes, BackendCoreType extends BackendCore<any,any,any,any,any>>(
+async function processAPIRequest<ParamType extends {}, ReturnDataType extends {}, PossibleErrorTypes extends PDKPossibleServerReturnErrTypes, BackendCoreType extends BackendCore<any,any,any,any,any>>(
     backendAPI: BackendAPI<ParamType, ReturnDataType, PossibleErrorTypes>,
     urlParams: any,
     getParams: any,
     bodyParams: any,
     backendCore: BackendCoreType,
-) : BackendServerReturnType<ParamType, ReturnDataType, PossibleErrorTypes>{
+) : Promise<BackendServerReturnType<ParamType, ReturnDataType, PossibleErrorTypes>>{
     try{
         //Merge URLParams, GetParams, BodyParams into one paramType
         let paramField = PDKAPIHTTPMethods[backendAPI.interactMethod].paramInRequestURL ? getParams : bodyParams;
@@ -57,7 +57,8 @@ function processAPIRequest<ParamType extends {}, ReturnDataType extends {}, Poss
         }
 
         //Finish Checking Params, Let's do this!
-        let returnData = backendAPI.apiFunction(parsedRequestParams,backendCore);
+        let returnData = await backendAPI.apiFunction(parsedRequestParams,backendCore);
+        
         let returnHTTPCode = 0;
         if(backendAPI.successfulHTTPCode !== undefined){
             returnHTTPCode = backendAPI.successfulHTTPCode;
