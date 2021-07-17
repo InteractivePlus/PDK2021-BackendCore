@@ -28,7 +28,7 @@ interface VerificationCodeEntityFactory<VerifyCodeInfo> extends BaseFactory{
      * @returns {VerifyCodeInfo} Parsed CodeInfo
      * @throws {PDKRequestParamFormatError}
      */
-    checkVerifyInfoValid(verifyInfo: any) : Promise<VerifyCodeInfo>;
+    checkVerifyInfoValid(verifyInfo: any) : VerifyCodeInfo;
     
     getVerificationCode?(veriCodeID : VeriCodeEntityID) : Promise<VerificationCodeEntity<unknown> | undefined>;
     updateVerificationCode?<ParamType>(veriCodeID: VeriCodeEntityID, veriCode : VerificationCodeEntity<ParamType>, oldVeriCode?: VerificationCodeEntity<ParamType>) : Promise<void>;
