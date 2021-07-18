@@ -4,6 +4,7 @@ import { UserGroupGroupID } from '@interactiveplus/pdk2021-common/dist/AbstractD
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendUserSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendUserSystemSetting';
 import { BaseFactory } from '../BaseFactory';
+import { AvatarEntityFactory } from '../Avatar/AvatarEntityFactory';
 
 type UserEntityCreateInfo = {
     [key in keyof UserEntity as Exclude<key,'uid'>]: UserEntity[key]
@@ -11,7 +12,13 @@ type UserEntityCreateInfo = {
 
 export type {UserEntityCreateInfo};
 
-interface UserEntityFactory extends BaseFactory<void>{
+interface UserEntityFactoryInstallInfo{
+    avatarEntityFactory: AvatarEntityFactory
+}
+
+export type {UserEntityFactoryInstallInfo};
+
+interface UserEntityFactory extends BaseFactory<UserEntityFactoryInstallInfo>{
     getUserUIDMaxLen() : number;
     getUserUIDExactLen?(): number;
     isUserUIDNumber() : boolean;

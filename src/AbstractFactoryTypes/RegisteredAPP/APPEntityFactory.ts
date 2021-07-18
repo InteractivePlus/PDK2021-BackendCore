@@ -4,7 +4,9 @@ import { APPClientID, APPClientSecret, APPUID } from '@interactiveplus/pdk2021-c
 import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
+import { AvatarEntityFactory } from '../Avatar/AvatarEntityFactory';
 import { BaseFactory } from '../BaseFactory';
+import { UserEntityFactory } from '../User/UserEntityFactory';
 
 type APPEntityCreateInfo = {
     [key in keyof APPEntity as Exclude<key,'appuid'>]: APPEntity[key]
@@ -12,7 +14,14 @@ type APPEntityCreateInfo = {
 
 export type {APPEntityCreateInfo};
 
-interface APPEntityFactory extends BaseFactory<void>{
+interface APPEntityFactoryInstallInfo{
+    userEntityFactory: UserEntityFactory,
+    avatarEntityFactory: AvatarEntityFactory
+}
+
+export type {APPEntityFactoryInstallInfo};
+
+interface APPEntityFactory extends BaseFactory<APPEntityFactoryInstallInfo>{
     getAPPUIDMaxLen() : number;
     getAPPUIDExactLen?(): number;
     isAPPUIDNumber() : boolean;

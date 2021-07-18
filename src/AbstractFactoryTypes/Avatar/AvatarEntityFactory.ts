@@ -16,6 +16,8 @@ interface AvatarEntityFactoryInstallInfo{
 export type {AvatarEntityFactoryInstallInfo};
 
 interface AvatarEntityFactory extends BaseFactory<AvatarEntityFactoryInstallInfo>{
+    getAvatarSaltLength() : number;
+
     getAvatarSystemSetting() : BackendAvatarSystemSetting;
 
     getAvatarBySalt(salt: string) : Promise<AvatarEntity | undefined>,

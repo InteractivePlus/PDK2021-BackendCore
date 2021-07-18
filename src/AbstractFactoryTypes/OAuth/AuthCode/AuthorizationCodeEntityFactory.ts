@@ -7,6 +7,8 @@ import { APPClientID, APPUID } from '@interactiveplus/pdk2021-common/dist/Abstra
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendOAuthSystemSetting } from '../../../AbstractDataTypes/SystemSetting/BackendOAuthSystemSetting';
 import { BaseFactory } from '../../BaseFactory';
+import { MaskIDEntityFactory } from '../../MaskID/MaskIDEntityFactory';
+import { APPEntityFactory } from '../../RegisteredAPP/APPEntityFactory';
 
 type AuthorizationCodeCreateEntity = {
     [key in keyof AuthorizationCodeEntity as Exclude<key,'authCode'>]: AuthorizationCodeEntity[key]
@@ -14,10 +16,17 @@ type AuthorizationCodeCreateEntity = {
 
 export type {AuthorizationCodeCreateEntity};
 
-interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo> extends BaseFactory<void>{
+interface AuthorizationCodeEntityFactoryInstallInfo{
+    appEntityFactory: APPEntityFactory,
+    maskIDEntityFactory: MaskIDEntityFactory
+}
+
+export type {AuthorizationCodeEntityFactoryInstallInfo};
+
+interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo> extends BaseFactory<AuthorizationCodeEntityFactoryInstallInfo>{
     getOAuthCodeMaxLength() : number;
-    getOAuthCodeExactLength() : number;
-    
+    getOAuthCodeExactLength?() : number;
+
     getOAuthSystemSetting() : BackendOAuthSystemSetting;
     
     createAuthCode(authCodeInfo : AuthorizationCodeCreateEntity) : Promise<AuthorizationCodeEntity>;

@@ -5,13 +5,24 @@ import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractData
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendOAuthSystemSetting } from '../../../AbstractDataTypes/SystemSetting/BackendOAuthSystemSetting';
 import { BaseFactory } from '../../BaseFactory';
+import { MaskIDEntityFactory } from '../../MaskID/MaskIDEntityFactory';
+import { APPEntityFactory } from '../../RegisteredAPP/APPEntityFactory';
+import { UserEntityFactory } from '../../User/UserEntityFactory';
 type OAuthTokenCreateInfo = {
     [key in keyof OAuthToken as Exclude<key,'accessToken'|'refreshToken'>]: OAuthToken[key]
 }
 
 export type {OAuthTokenCreateInfo};
 
-interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory<void>{
+interface OAuthTokenFactoryInstallInfo{
+    maskIDEntityFactory: MaskIDEntityFactory,
+    userEntityFactory: UserEntityFactory,
+    appEntityFactory: APPEntityFactory
+}
+
+export type {OAuthTokenFactoryInstallInfo};
+
+interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory<OAuthTokenFactoryInstallInfo>{
     getAccessTokenMaxLen(): number;
     getAccessTokenExactLen?(): number;
     getRefreshTokenMaxLen() : number;

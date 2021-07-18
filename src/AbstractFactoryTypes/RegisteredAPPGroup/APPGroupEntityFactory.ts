@@ -1,6 +1,7 @@
 import { APPGroupEntity, APPGroupID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPPGroup/APPGroupEntity';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
+import { AvatarEntityFactory } from '../Avatar/AvatarEntityFactory';
 import { BaseFactory } from '../BaseFactory';
 
 type APPGroupCreateInfo = {
@@ -9,7 +10,13 @@ type APPGroupCreateInfo = {
 
 export type {APPGroupCreateInfo};
 
-interface APPGroupEntityFactory extends BaseFactory<void>{
+interface APPGroupEntityFactoryInstallInfo{
+    avatarEntityFactory: AvatarEntityFactory
+}
+
+export type {APPGroupEntityFactoryInstallInfo};
+
+interface APPGroupEntityFactory extends BaseFactory<APPGroupEntityFactoryInstallInfo>{
     getAPPGroupIDMaxLen() : number;
 
     getAPPSystemSetting() : BackendAPPSystemSetting;

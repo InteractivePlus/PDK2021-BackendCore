@@ -3,6 +3,7 @@ import { UserAccessToken, UserRefreshToken, UserToken } from '@interactiveplus/p
 import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BaseFactory } from '../BaseFactory';
+import { UserEntityFactory } from './UserEntityFactory';
 
 type UserTokenCreateInfo = {
     [key in keyof UserToken as Exclude<key,'accessToken'|'refreshToken'>]: UserToken[key]
@@ -10,7 +11,13 @@ type UserTokenCreateInfo = {
 
 export type {UserTokenCreateInfo};
 
-interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory<void>{
+interface UserTokenFactoryInstallInfo{
+    userEntityFactory: UserEntityFactory
+}
+
+export type {UserTokenFactoryInstallInfo};
+
+interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory<UserTokenFactoryInstallInfo>{
     getAccessTokenMaxLen() : number;
     getAccessTokenExactLen?() : number;
     getRefreshTokenMaxLen() : number;

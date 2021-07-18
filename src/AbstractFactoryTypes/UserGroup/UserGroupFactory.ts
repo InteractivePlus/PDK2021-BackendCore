@@ -1,15 +1,22 @@
 import { UserGroup, UserGroupGroupID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/UserGroup/UserGroup';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendUserSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendUserSystemSetting';
+import { AvatarEntityFactory } from '../Avatar/AvatarEntityFactory';
 import { BaseFactory } from '../BaseFactory';
 
 type UserGroupCreateInfo = UserGroup;
 
 export type {UserGroupCreateInfo};
 
-interface UserGroupFactory extends BaseFactory<void>{
+interface UserGroupFactoryInstallInfo{
+    avatarEntityFactory: AvatarEntityFactory
+}
+
+export type {UserGroupFactoryInstallInfo};
+
+interface UserGroupFactory extends BaseFactory<UserGroupFactoryInstallInfo>{
     getUserGroupIDMaxLen() : number;
-    
+
     getUserSystemSetting() : BackendUserSystemSetting;
     
     createUserGroup(createInfo : UserGroupCreateInfo) : Promise<UserGroup>;
