@@ -16,6 +16,8 @@ interface APPEntityFactory extends BaseFactory<void>{
     getAPPUIDMaxLen() : number;
     getAPPUIDExactLen?(): number;
     isAPPUIDNumber() : boolean;
+    getAPPClientIDMaxLen() : number;
+    getAPPClientIDExactLen?() : number;
 
     getAPPSystemSetting() : BackendAPPSystemSetting;
 
@@ -27,6 +29,12 @@ interface APPEntityFactory extends BaseFactory<void>{
     getAPPEntityByClientID(clientID : APPClientID) : Promise<APPEntity | undefined>;
     updateAPPEntity(appuid : APPUID, appEntity : APPEntity, oldAPPEntity?: APPEntity) : Promise<void>;
     deleteAPPEntity(appuid : APPUID) : Promise<void>;
+
+    /**
+     * Fetch APPUID / ClientID occupied by PDK
+     * @returns {APPUID} occupied by this PDK system
+    */
+    getPDKReservedAPPUID() : APPUID;
 
     getAPPEntityCount(
         appuid?: APPUID,

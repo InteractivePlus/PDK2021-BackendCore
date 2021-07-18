@@ -7,6 +7,10 @@ import { UserEntityUID } from "@interactiveplus/pdk2021-common/dist/AbstractData
 import { SearchResult } from "@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult";
 import { BackendCommunicationSystemSetting } from "../../../AbstractDataTypes/SystemSetting/BackendCommunicationSystemSetting";
 import { BaseFactory } from "../../BaseFactory";
+import { MaskIDEntityFactory } from "../../MaskID/MaskIDEntityFactory";
+import { OAuthTokenFactory } from "../../OAuth/Token/OAuthTokenFactory";
+import { APPEntityFactory } from "../../RegisteredAPP/APPEntityFactory";
+import { UserEntityFactory } from "../../User/UserEntityFactory";
 
 type VerificationCodeCreateEntity<ParamType> = {
     [key in keyof VerificationCodeEntity<ParamType> as Exclude<key,'veriCodeID'>]: VerificationCodeEntity<ParamType>[key]
@@ -14,7 +18,21 @@ type VerificationCodeCreateEntity<ParamType> = {
 
 export type {VerificationCodeCreateEntity};
 
-interface VerificationCodeEntityFactory<VerifyCodeInfo> extends BaseFactory<void>{
+interface VerificationCodeEntityFactoryInstallInfo{
+    userEntityFactory: UserEntityFactory,
+    appEntityFactory: APPEntityFactory,
+    maskIDEntityFactory: MaskIDEntityFactory,
+    oAuthTokenEntityFactory: OAuthTokenFactory<any,any>
+}
+
+export type {VerificationCodeEntityFactoryInstallInfo};
+
+interface VerificationCodeEntityFactory<VerifyCodeInfo> extends BaseFactory<VerificationCodeEntityFactoryInstallInfo>{
+    getVerificationCodeMaxLen() : number;
+    getVerificationCodeExactLen?() : number;
+    getVerificationCodeShortCodeMaxLen() : number;
+    getVerificationCodeShortCodeExactLen?(): number;
+
     getCommunicationSystemSetting() : BackendCommunicationSystemSetting;
 
     createVerificationCode<ParamType>(createInfo: VerificationCodeCreateEntity<ParamType>) : Promise<VerificationCodeEntity<ParamType>>;
@@ -36,7 +54,7 @@ interface VerificationCodeEntityFactory<VerifyCodeInfo> extends BaseFactory<void
     
     checkVerificationCodeExist?(veriCodeID: VeriCodeEntityID) : Promise<boolean>;
     
-    getVerificationCodeCont?(
+    getVerificationCodeCount?(
         veriCodeID?: VeriCodeEntityID,
         isShortID?: boolean,
         relatedUser?: UserEntityUID,
