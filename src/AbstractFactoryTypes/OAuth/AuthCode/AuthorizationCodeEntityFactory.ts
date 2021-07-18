@@ -14,7 +14,10 @@ type AuthorizationCodeCreateEntity = {
 
 export type {AuthorizationCodeCreateEntity};
 
-interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo> extends BaseFactory{
+interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo> extends BaseFactory<void>{
+    getOAuthCodeMaxLength() : number;
+    getOAuthCodeExactLength() : number;
+    
     getOAuthSystemSetting() : BackendOAuthSystemSetting;
     
     createAuthCode(authCodeInfo : AuthorizationCodeCreateEntity) : Promise<AuthorizationCodeEntity>;

@@ -10,7 +10,12 @@ type UserTokenCreateInfo = {
 
 export type {UserTokenCreateInfo};
 
-interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory{
+interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory<void>{
+    getAccessTokenMaxLen() : number;
+    getAccessTokenExactLen?() : number;
+    getRefreshTokenMaxLen() : number;
+    getRefreshTokenExactLen?() : number;
+
     getUserSystemSetting() : BackendUserSystemSetting;
 
     createUserToken(createInfo : UserTokenCreateInfo) : Promise<UserToken>;

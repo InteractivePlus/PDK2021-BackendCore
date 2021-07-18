@@ -7,7 +7,9 @@ type UserGroupCreateInfo = UserGroup;
 
 export type {UserGroupCreateInfo};
 
-interface UserGroupFactory extends BaseFactory{
+interface UserGroupFactory extends BaseFactory<void>{
+    getUserGroupIDMaxLen() : number;
+    
     getUserSystemSetting() : BackendUserSystemSetting;
     
     createUserGroup(createInfo : UserGroupCreateInfo) : Promise<UserGroup>;

@@ -14,7 +14,7 @@ type VerificationCodeCreateEntity<ParamType> = {
 
 export type {VerificationCodeCreateEntity};
 
-interface VerificationCodeEntityFactory<VerifyCodeInfo> extends BaseFactory{
+interface VerificationCodeEntityFactory<VerifyCodeInfo> extends BaseFactory<void>{
     getCommunicationSystemSetting() : BackendCommunicationSystemSetting;
 
     createVerificationCode<ParamType>(createInfo: VerificationCodeCreateEntity<ParamType>) : Promise<VerificationCodeEntity<ParamType>>;

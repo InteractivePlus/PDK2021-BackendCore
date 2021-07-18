@@ -9,7 +9,9 @@ type APPGroupCreateInfo = {
 
 export type {APPGroupCreateInfo};
 
-interface APPGroupEntityFactory extends BaseFactory{
+interface APPGroupEntityFactory extends BaseFactory<void>{
+    getAPPGroupIDMaxLen() : number;
+
     getAPPSystemSetting() : BackendAPPSystemSetting;
 
     createAPPGroupEntity(createInfo: APPGroupCreateInfo) : Promise<APPGroupEntity>;

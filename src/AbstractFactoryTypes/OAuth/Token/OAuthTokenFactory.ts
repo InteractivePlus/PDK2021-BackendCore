@@ -11,9 +11,14 @@ type OAuthTokenCreateInfo = {
 
 export type {OAuthTokenCreateInfo};
 
-interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory{
+interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory<void>{
+    getAccessTokenMaxLen(): number;
+    getAccessTokenExactLen?(): number;
+    getRefreshTokenMaxLen() : number;
+    getRefreshTokenExactLen?() : number;
+
     getOAuthSystemSetting() : BackendOAuthSystemSetting;
-    
+
     createOAuthToken(createInfo: OAuthTokenCreateInfo) : Promise<OAuthToken>;
 
     verifyOAuthAccessToken(verifyInfo : VerifyAccessTokenInfo) : Promise<boolean>;

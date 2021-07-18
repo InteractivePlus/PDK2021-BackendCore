@@ -12,7 +12,11 @@ type APPEntityCreateInfo = {
 
 export type {APPEntityCreateInfo};
 
-interface APPEntityFactory extends BaseFactory{
+interface APPEntityFactory extends BaseFactory<void>{
+    getAPPUIDMaxLen() : number;
+    getAPPUIDExactLen?(): number;
+    isAPPUIDNumber() : boolean;
+
     getAPPSystemSetting() : BackendAPPSystemSetting;
 
     createAPPEntity(createInfo : APPEntityCreateInfo) : Promise<APPEntity>;

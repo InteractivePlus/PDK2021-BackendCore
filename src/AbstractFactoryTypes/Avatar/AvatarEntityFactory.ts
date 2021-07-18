@@ -1,6 +1,7 @@
 import {AvatarEntity} from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/Avatar/AvatarEntity';
 import { BackendAvatarSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAvatarSystemSetting';
 import { BaseFactory } from '../BaseFactory';
+import { UserEntityFactory } from '../User/UserEntityFactory';
 
 type AvatarCreateEntity = {
     [key in keyof AvatarEntity as Exclude<key,'salt'>]: AvatarEntity[key]
@@ -8,7 +9,13 @@ type AvatarCreateEntity = {
 
 export type {AvatarCreateEntity};
 
-interface AvatarEntityFactory extends BaseFactory{
+interface AvatarEntityFactoryInstallInfo{
+    userEntityFactory: UserEntityFactory;
+}
+
+export type {AvatarEntityFactoryInstallInfo};
+
+interface AvatarEntityFactory extends BaseFactory<AvatarEntityFactoryInstallInfo>{
     getAvatarSystemSetting() : BackendAvatarSystemSetting;
 
     getAvatarBySalt(salt: string) : Promise<AvatarEntity | undefined>,

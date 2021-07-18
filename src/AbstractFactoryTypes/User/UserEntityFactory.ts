@@ -11,7 +11,11 @@ type UserEntityCreateInfo = {
 
 export type {UserEntityCreateInfo};
 
-interface UserEntityFactory extends BaseFactory{
+interface UserEntityFactory extends BaseFactory<void>{
+    getUserUIDMaxLen() : number;
+    getUserUIDExactLen?(): number;
+    isUserUIDNumber() : boolean;
+
     getUserSystemSetting() : BackendUserSystemSetting;
 
     createUser(createInfo : UserEntityCreateInfo) : Promise<UserEntity>;
