@@ -3,7 +3,8 @@ import { UserGroupGroupID } from '@interactiveplus/pdk2021-common/dist/AbstractD
 
 interface BackendUserSystemSetting extends UserSystemSetting{
     defaultNewUserGroupId: UserGroupGroupID,
-    passwordEncrypt(passwordToEncrypt : string) : string
+    passwordEncrypt(passwordToEncrypt : string) : string,
+    passwordHashMaxLen: number
 }
 
 export type {BackendUserSystemSetting};
