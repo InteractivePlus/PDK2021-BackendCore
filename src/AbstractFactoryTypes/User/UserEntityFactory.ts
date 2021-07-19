@@ -5,6 +5,7 @@ import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataT
 import { BackendUserSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendUserSystemSetting';
 import { BaseFactory } from '../BaseFactory';
 import { AvatarEntityFactory } from '../Avatar/AvatarEntityFactory';
+import { UserGroupFactory } from '../UserGroup/UserGroupFactory';
 
 type UserEntityCreateInfo = {
     [key in keyof UserEntity as Exclude<key,'uid'>]: UserEntity[key]
@@ -13,7 +14,8 @@ type UserEntityCreateInfo = {
 export type {UserEntityCreateInfo};
 
 interface UserEntityFactoryInstallInfo{
-    avatarEntityFactory: AvatarEntityFactory
+    avatarEntityFactory: AvatarEntityFactory,
+    userGroupFactory: UserGroupFactory
 }
 
 export type {UserEntityFactoryInstallInfo};

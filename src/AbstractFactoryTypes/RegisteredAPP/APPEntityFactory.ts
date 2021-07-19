@@ -6,6 +6,7 @@ import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataT
 import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
 import { AvatarEntityFactory } from '../Avatar/AvatarEntityFactory';
 import { BaseFactory } from '../BaseFactory';
+import { APPGroupEntityFactory } from '../RegisteredAPPGroup/APPGroupEntityFactory';
 import { UserEntityFactory } from '../User/UserEntityFactory';
 
 type APPEntityCreateInfo = {
@@ -16,7 +17,8 @@ export type {APPEntityCreateInfo};
 
 interface APPEntityFactoryInstallInfo{
     userEntityFactory: UserEntityFactory,
-    avatarEntityFactory: AvatarEntityFactory
+    avatarEntityFactory: AvatarEntityFactory,
+    appGroupEntityFactory: APPGroupEntityFactory
 }
 
 export type {APPEntityFactoryInstallInfo};
