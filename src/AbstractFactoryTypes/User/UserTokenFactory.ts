@@ -71,7 +71,7 @@ interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extend
         issueRemoteAddr?: string,
         renewRemoteAddr?: string
     ) : Promise<number>;
-    searchUserToken(
+    searchUserToken?(
         userId?: UserEntityUID,
         accessToken?: UserAccessToken,
         refreshToken?: UserRefreshToken,
@@ -90,7 +90,7 @@ interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extend
         numLimit?: number,
         startPosition?: number
     ) : Promise<SearchResult<UserToken>>;
-    clearUserToken(
+    clearUserToken?(
         userId?: UserEntityUID,
         accessToken?: UserAccessToken,
         refreshToken?: UserRefreshToken,
