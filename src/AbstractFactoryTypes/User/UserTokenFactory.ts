@@ -48,7 +48,9 @@ interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extend
     checkVerifyRefreshTokenInfoValid(verifyInfo: any) : Promise<VerifyRefreshTokenInfo>;
 
     getUserToken?(accessToken : UserAccessToken) : Promise<UserToken | undefined>;
+    checkUserTokenExist?(accessToken : UserAccessToken) : Promise<boolean>;
     getUserTokenByRefreshToken?(refreshToken : UserRefreshToken) : Promise<UserToken | undefined>;
+    checkUserRefreshTokenExist?(refreshToken: UserRefreshToken) : Promise<boolean>;
     updateUserToken?(accessToken : UserAccessToken, tokenEntity : UserToken, oldTokenEntity?: UserToken) : Promise<void>;
     updateUserTokenByRefreshToken?(refreshToken : UserRefreshToken, tokenEntity : UserToken, oldTokenEntity?: UserToken) : Promise<void>;
     deleteUserToken?(accessToken : UserAccessToken) : Promise<void>;

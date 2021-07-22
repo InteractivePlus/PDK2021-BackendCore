@@ -29,9 +29,14 @@ interface UserEntityFactory extends BaseFactory<UserEntityFactoryInstallInfo>{
 
     createUser(createInfo : UserEntityCreateInfo) : Promise<UserEntity>;
     getUser(uid : UserEntityUID) : Promise<UserEntity | undefined>;
+    checkUIDExist(uid : UserEntityUID) : Promise<boolean>;
     getUserByUsername(username : string) : Promise<UserEntity | undefined>;
+    checkUsernameExist(username: string) : Promise<boolean>;
     getUserByEmail(email : string) : Promise<UserEntity | undefined>;
+    checkEmailExist(email : string) : Promise<boolean>;
     getUserByPhoneNum(phoneNum : PhoneNumber) : Promise<UserEntity | undefined>;
+    checkPhoneNumExist(phoneNum : PhoneNumber) : Promise<boolean>;
+    checkAnyIdentifierExist(username: string, email?: string, phoneNum?: PhoneNumber) : Promise<('username' | 'email' | 'phoneNum')[] | undefined>;
     updateUser(uid : UserEntityUID, userEntity : UserEntity, oldUserEntity?: UserEntity) : Promise<void>;
     deleteUser(uid : UserEntityUID) : Promise<void>;
 

@@ -22,6 +22,7 @@ interface UserGroupFactory extends BaseFactory<UserGroupFactoryInstallInfo>{
     createUserGroup(createInfo : UserGroupCreateInfo) : Promise<UserGroup>;
 
     getUserGroup(groupId : UserGroupGroupID) : Promise<UserGroup | undefined>;
+    checkUserGroupIDExist(groupId: UserGroupGroupID) : Promise<boolean>;
     updateUserGroup(groupId : UserGroupGroupID, groupEntity : UserGroup, oldGroupEntity?: UserGroup) : Promise<void>;
     deleteUserGroup(groupId : UserGroupGroupID) : Promise<void>;
 

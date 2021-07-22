@@ -23,6 +23,7 @@ interface APPGroupEntityFactory extends BaseFactory<APPGroupEntityFactoryInstall
 
     createAPPGroupEntity(createInfo: APPGroupCreateInfo) : Promise<APPGroupEntity>;
     getAPPGroupEntity(appGroupId : APPGroupID) : Promise<APPGroupEntity | undefined>;
+    checkAPPGroupIDExist(appGroupID : APPGroupID) : Promise<boolean>;
     updateAPPGroupEntity(appGroupId : APPGroupID, appGroupEntity : APPGroupEntity, oldAPPGroupEntity?: APPGroupEntity) : Promise<void>;
     deleteAPPGroupEntity(appGroupId : APPGroupID) : void;
 

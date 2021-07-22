@@ -36,6 +36,8 @@ interface APPEntityFactory extends BaseFactory<APPEntityFactoryInstallInfo>{
     
     verifyAPPEntityCredential(clientID : APPClientID, currentGrantType : OAuthAuthorizationMethod, clientSecret?: APPClientSecret) : Promise<boolean>;
 
+    checkAPPUIDExist(appuid : APPUID) : Promise<boolean>;
+    checkAPPClientIDExist(appClientID : APPClientID) : Promise<boolean>;
     getAPPEntity(appuid : APPUID) : Promise<APPEntity | undefined>;
     getAPPEntityByClientID(clientID : APPClientID) : Promise<APPEntity | undefined>;
     updateAPPEntity(appuid : APPUID, appEntity : APPEntity, oldAPPEntity?: APPEntity) : Promise<void>;

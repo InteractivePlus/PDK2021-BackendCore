@@ -21,6 +21,8 @@ interface MaskIDEntityFactory extends BaseFactory<void>{
     updateMaskIDEntity(maskUID: MaskUID, maskEntity : MaskIDEntity, oldMaskEntity?: MaskIDEntity) : Promise<void>;
     deleteMaskIDEntity(maskUID: MaskUID) : Promise<void>;
     
+    checkMaskUIDExists(maskUID: MaskUID) : Promise<boolean>;
+
     getMaskIDEntityCount(
         maskUID?: MaskUID, 
         displayName?: string,

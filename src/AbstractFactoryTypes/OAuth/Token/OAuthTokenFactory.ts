@@ -51,10 +51,12 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> exten
      * @returns {VerifyCodeInfo} Parsed CodeInfo
      * @throws {PDKRequestParamFormatError}
      */
-     checkVerifyRefreshTokenInfoValid(verifyInfo: any) : Promise<VerifyRefreshTokenInfo>;
+    checkVerifyRefreshTokenInfoValid(verifyInfo: any) : Promise<VerifyRefreshTokenInfo>;
     
     getOAuthToken?(accessToken : OAuthAccessToken) : Promise<OAuthToken | undefined>;
     getOAuthTokenByRefreshToken?(refreshToken : OAuthRefreshToken) : Promise<OAuthToken | undefined>;
+    checkOAuthTokenExist?(accessToken : OAuthAccessToken) : Promise<boolean>;
+    checkOAuthRefreshTokenExist?(refreshToken: OAuthRefreshToken) : Promise<boolean>;
     updateOAuthToken?(accessToken : OAuthAccessToken, oAuthToken : OAuthToken, oldOAuthToken?: OAuthToken) : Promise<void>;
     updateOAuthTokenByRefreshToken?(refreshToken: OAuthRefreshToken, oAuthToken : OAuthToken, oldOAuthToken?: OAuthToken) : Promise<void>;
     deleteOAuthToken?(accessToken : OAuthAccessToken) : Promise<void>;
