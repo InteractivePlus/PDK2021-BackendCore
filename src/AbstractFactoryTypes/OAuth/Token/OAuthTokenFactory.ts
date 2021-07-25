@@ -3,6 +3,7 @@ import { OAuthAccessToken, OAuthRefreshToken, OAuthToken } from '@interactiveplu
 import { APPClientID, APPUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat';
 import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
+import { OAuthScope } from '../../../../../pdk2021-common/dist/AbstractDataTypes/OAuth/OAuthScope';
 import { BackendOAuthSystemSetting } from '../../../AbstractDataTypes/SystemSetting/BackendOAuthSystemSetting';
 import { BaseFactory } from '../../BaseFactory';
 import { MaskIDEntityFactory } from '../../MaskID/MaskIDEntityFactory';
@@ -22,7 +23,7 @@ interface OAuthTokenFactoryInstallInfo{
 
 export type {OAuthTokenFactoryInstallInfo};
 
-interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory<OAuthTokenFactoryInstallInfo>{
+interface OAuthTokenFactory extends BaseFactory<OAuthTokenFactoryInstallInfo>{
     getAccessTokenMaxLen(): number;
     getAccessTokenExactLen?(): number;
     getRefreshTokenMaxLen() : number;
@@ -32,27 +33,12 @@ interface OAuthTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> exten
 
     createOAuthToken(createInfo: OAuthTokenCreateInfo) : Promise<OAuthToken>;
 
-    verifyOAuthAccessToken(verifyInfo : VerifyAccessTokenInfo) : Promise<boolean>;
+    verifyOAuthAccessToken(accessToken : OAuthAccessToken, maskUID?: MaskUID, clientID?: APPClientID, requiredScopes?: OAuthScope[]) : Promise<boolean>;
     setOAuthAcessTokenInvalid?(accessToken : OAuthAccessToken) : Promise<void>;
 
-    verifyOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : Promise<boolean>;
-    verifyAndUseOAuthRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : Promise<boolean>;
-    /**
-     * Check if verifyInfo for verifying access code is in correct format
-     * @param verifyInfo struct passed by client
-     * @returns {VerifyRefreshTokenInfo} Parsed CodeInfo
-     * @throws {PDKRequestParamFormatError}
-     */
-    checkVerifyAccessTokenInfoValid(verifyInfo: any) : Promise<VerifyAccessTokenInfo>;
+    verifyOAuthRefreshToken(refreshToken : OAuthAccessToken, maskUID?: MaskUID, clientID?: APPClientID) : Promise<boolean>;
+    verifyAndUseOAuthRefreshToken(refreshToken : OAuthAccessToken, maskUID?: MaskUID, clientID?: APPClientID) : Promise<OAuthToken | undefined>;
 
-    /**
-     * Check if verifyInfo for verifying refresh code is in correct format
-     * @param verifyInfo struct passed by client
-     * @returns {VerifyCodeInfo} Parsed CodeInfo
-     * @throws {PDKRequestParamFormatError}
-     */
-    checkVerifyRefreshTokenInfoValid(verifyInfo: any) : Promise<VerifyRefreshTokenInfo>;
-    
     getOAuthToken?(accessToken : OAuthAccessToken) : Promise<OAuthToken | undefined>;
     getOAuthTokenByRefreshToken?(refreshToken : OAuthRefreshToken) : Promise<OAuthToken | undefined>;
     checkOAuthTokenExist?(accessToken : OAuthAccessToken) : Promise<boolean>;

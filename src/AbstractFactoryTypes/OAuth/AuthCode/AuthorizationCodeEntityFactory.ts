@@ -1,6 +1,6 @@
 import { MaskUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/MaskID/MaskIDEntity';
 import { AuthCodeChallengeType } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/AuthCode/AuthCodeFormat';
-import { AuthorizationCodeEntity } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/AuthCode/AuthorizationCodeEntity';
+import { AuthCode, AuthorizationCodeEntity } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/AuthCode/AuthorizationCodeEntity';
 import { OAuthAuthorizationMethod } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/OAuthAuthorizationMethod';
 import { OAuthScope } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/OAuthScope';
 import { APPClientID, APPUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat';
@@ -23,7 +23,7 @@ interface AuthorizationCodeEntityFactoryInstallInfo{
 
 export type {AuthorizationCodeEntityFactoryInstallInfo};
 
-interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo> extends BaseFactory<AuthorizationCodeEntityFactoryInstallInfo>{
+interface AuthorizationCodeEntityFactory extends BaseFactory<AuthorizationCodeEntityFactoryInstallInfo>{
     getOAuthCodeMaxLength() : number;
     getOAuthCodeExactLength?() : number;
 
@@ -31,8 +31,8 @@ interface AuthorizationCodeEntityFactory<VerifyAuthCodeInfo> extends BaseFactory
     
     createAuthCode(authCodeInfo : AuthorizationCodeCreateEntity) : Promise<AuthorizationCodeEntity>;
     
-    verifyAuthCode(verifyInfo : VerifyAuthCodeInfo) : Promise<boolean>;
-    verifyAndUseAuthCode(verifyInfo : VerifyAuthCodeInfo) : Promise<boolean>;
+    verifyAuthCode(authCode : AuthCode, authMethod?: OAuthAuthorizationMethod, clientID?: APPClientID, maskUID?: MaskUID, codeVerifier?: string) : Promise<boolean>;
+    verifyAndUseAuthCode(authCode : AuthCode, authMethod?: OAuthAuthorizationMethod, clientID?: APPClientID, maskUID?: MaskUID, codeVerifier?: string) : Promise<boolean>;
 
     getAuthorizationCode?(authCode : string) : Promise<AuthorizationCodeEntity | undefined>;
     updateAuthorizationCode?(authCode : string, authCodeEntity : AuthorizationCodeEntity, oldAuthCodeEntity?: AuthorizationCodeEntity) : Promise<void>;

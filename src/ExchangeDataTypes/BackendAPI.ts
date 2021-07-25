@@ -12,7 +12,7 @@ interface BackendAPI<ParamType extends {}, ReturnDataType extends {}, PossibleEr
      * @param backendCore core library received
      * @throws {PossibleErrorTypes} error types
      */
-    apiFunction<BackendCoreType extends BackendCore<any,any,any,any,any>>(params : ParamType, backendCore : BackendCoreType) : Promise<ReturnDataType>,
+    apiFunction<BackendCoreType extends BackendCore>(params : ParamType, backendCore : BackendCoreType) : Promise<ReturnDataType>,
     
     
     additionalParamCheck?: (params: any) => {succeed: boolean, errorParams: (keyof ParamType)[]}
@@ -26,7 +26,7 @@ interface BackendServerReturnType<ParamType extends {},ReturnDataType extends {}
 
 export type {BackendServerReturnType};
 
-async function processAPIRequest<ParamType extends {}, ReturnDataType extends {}, PossibleErrorTypes extends PDKPossibleServerReturnErrTypes, BackendCoreType extends BackendCore<any,any,any,any,any>>(
+async function processAPIRequest<ParamType extends {}, ReturnDataType extends {}, PossibleErrorTypes extends PDKPossibleServerReturnErrTypes, BackendCoreType extends BackendCore>(
     backendAPI: BackendAPI<ParamType, ReturnDataType, PossibleErrorTypes>,
     urlParams: any,
     getParams: any,

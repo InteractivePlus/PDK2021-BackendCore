@@ -22,12 +22,12 @@ interface VerificationCodeEntityFactoryInstallInfo{
     userEntityFactory: UserEntityFactory,
     appEntityFactory: APPEntityFactory,
     maskIDEntityFactory: MaskIDEntityFactory,
-    oAuthTokenEntityFactory: OAuthTokenFactory<any,any>
+    oAuthTokenEntityFactory: OAuthTokenFactory
 }
 
 export type {VerificationCodeEntityFactoryInstallInfo};
 
-interface VerificationCodeEntityFactory<VerifyCodeInfo> extends BaseFactory<VerificationCodeEntityFactoryInstallInfo>{
+interface VerificationCodeEntityFactory extends BaseFactory<VerificationCodeEntityFactoryInstallInfo>{
     getVerificationCodeMaxLen() : number;
     getVerificationCodeExactLen?() : number;
     getVerificationCodeShortCodeMaxLen() : number;
@@ -38,15 +38,8 @@ interface VerificationCodeEntityFactory<VerifyCodeInfo> extends BaseFactory<Veri
     createVerificationCode<ParamType>(createInfo: VerificationCodeCreateEntity<ParamType>) : Promise<VerificationCodeEntity<ParamType>>;
     revokeCreatedVerificationCode<ParamType>(createdVeriCodeEntity : VerificationCodeEntity<ParamType>) : Promise<void>;
     
-    verifyVerificationCode(verifyInfo : VerifyCodeInfo) : Promise<boolean>;
-    verifyAndUseVerificationCode(verifyInfo : VerifyCodeInfo) : Promise<boolean>;
-    /**
-     * Check if verifyInfo is in correct format
-     * @param verifyInfo struct passed by client
-     * @returns {VerifyCodeInfo} Parsed CodeInfo
-     * @throws {PDKRequestParamFormatError}
-     */
-    checkVerifyInfoValid(verifyInfo: any) : VerifyCodeInfo;
+    verifyVerificationCode(veriCode : VeriCodeEntityID, isShortCode : boolean, uid?: UserEntityUID, appuid?: APPUID, client_id?: APPClientID, mask_id?: MaskUID, useScope?: string | number) : Promise<boolean>;
+    verifyAndUseVerificationCode(veriCode : VeriCodeEntityID, isShortCode : boolean, uid?: UserEntityUID, appuid?: APPUID, client_id?: APPClientID, mask_id?: MaskUID, useScope?: string | number) : Promise<boolean>;
     
     getVerificationCode?(veriCodeID : VeriCodeEntityID) : Promise<VerificationCodeEntity<unknown> | undefined>;
     updateVerificationCode?<ParamType>(veriCodeID: VeriCodeEntityID, veriCode : VerificationCodeEntity<ParamType>, oldVeriCode?: VerificationCodeEntity<ParamType>) : Promise<void>;

@@ -9,16 +9,16 @@ import { UserTokenFactory } from "../AbstractFactoryTypes/User/UserTokenFactory"
 import { UserGroupFactory } from "../AbstractFactoryTypes/UserGroup/UserGroupFactory";
 import { BackendSystemSetting } from "./SystemSetting/BackendSystemSetting";
 
-class BackendCore<VeriCodeVerifyInfo, OAuthAccessTokenVerifyInfo, OAuthRefreshTokenVerifyInfo, UserAccessTokenVerifyInfo, UserRefreshTokenVerifyInfo>{
+class BackendCore{
     constructor(
         public systemSettings: BackendSystemSetting,
-        public veriCodeEntityFactory: VerificationCodeEntityFactory<VeriCodeVerifyInfo>,
+        public veriCodeEntityFactory: VerificationCodeEntityFactory,
         public maskIDEntityFactory: MaskIDEntityFactory,
         public oAuthAuthCodeEntityFactory: AuthorizationCodeEntityFormatSetting,
-        public oAuthTokenFactory: OAuthTokenFactory<OAuthAccessTokenVerifyInfo, OAuthRefreshTokenVerifyInfo>,
+        public oAuthTokenFactory: OAuthTokenFactory,
         public appEntityFactory: APPEntityFactory,
         public appGroupEntityFactory: APPGroupEntityFactory,
-        public userTokenFactory: UserTokenFactory<UserAccessTokenVerifyInfo,UserRefreshTokenVerifyInfo>,
+        public userTokenFactory: UserTokenFactory,
         public userEntityFactory: UserEntityFactory,
         public userGroupFactory: UserGroupFactory
     ){

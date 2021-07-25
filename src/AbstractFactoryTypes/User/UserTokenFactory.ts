@@ -17,7 +17,7 @@ interface UserTokenFactoryInstallInfo{
 
 export type {UserTokenFactoryInstallInfo};
 
-interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extends BaseFactory<UserTokenFactoryInstallInfo>{
+interface UserTokenFactory extends BaseFactory<UserTokenFactoryInstallInfo>{
     getAccessTokenMaxLen() : number;
     getAccessTokenExactLen?() : number;
     getRefreshTokenMaxLen() : number;
@@ -27,25 +27,11 @@ interface UserTokenFactory<VerifyAccessTokenInfo, VerifyRefreshTokenInfo> extend
 
     createUserToken(createInfo : UserTokenCreateInfo) : Promise<UserToken>;
 
-    verifyUserAccessToken(verifyInfo : VerifyAccessTokenInfo) : Promise<boolean>;
+    verifyUserAccessToken(accessToken: UserAccessToken, userId: UserEntityUID) : Promise<boolean>;
     setUserAccessTokenInvalid?(accessToken : UserAccessToken) : Promise<void>;
-    /**
-     * Check if verifyInfo for verifying access token is in correct format
-     * @param verifyInfo struct passed by client
-     * @returns {VerifyAccessTokenInfo} Parsed CodeInfo
-     * @throws {PDKRequestParamFormatError}
-     */
-    checkVerifyAccessTokenInfoValid(verifyInfo: any) : Promise<VerifyAccessTokenInfo>;
 
-    verifyUserRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : Promise<boolean>;
-    verifyAndUseUserRefreshToken(verifyInfo : VerifyRefreshTokenInfo) : Promise<boolean>;
-    /**
-     * Check if verifyInfo for verifying refresh token is in correct format
-     * @param verifyInfo struct passed by client
-     * @returns {VerifyRefreshTokenInfo} Parsed CodeInfo
-     * @throws {PDKRequestParamFormatError}
-     */
-    checkVerifyRefreshTokenInfoValid(verifyInfo: any) : Promise<VerifyRefreshTokenInfo>;
+    verifyUserRefreshToken(refreshToken : UserRefreshToken, userId: UserEntityUID) : Promise<boolean>;
+    verifyAndUseUserRefreshToken(refreshToken : UserRefreshToken, userId: UserEntityUID) : Promise<UserToken | undefined>;
 
     getUserToken?(accessToken : UserAccessToken) : Promise<UserToken | undefined>;
     checkUserTokenExist?(accessToken : UserAccessToken) : Promise<boolean>;
