@@ -23,6 +23,16 @@ interface AuthorizationCodeEntityFactoryInstallInfo{
 
 export type {AuthorizationCodeEntityFactoryInstallInfo};
 
+interface AuthorizationCodeEntityFactoryUsedInfo{
+    authMethod: OAuthAuthorizationMethod,
+    grantUserRemoteAddr: string,
+    clientID: APPClientID,
+    maskUID: MaskUID,
+    scopes: OAuthScope[]
+}
+
+export type {AuthorizationCodeEntityFactoryUsedInfo};
+
 interface AuthorizationCodeEntityFactory extends BaseFactory<AuthorizationCodeEntityFactoryInstallInfo>{
     getOAuthCodeMaxLength() : number;
     getOAuthCodeExactLength?() : number;
@@ -32,7 +42,7 @@ interface AuthorizationCodeEntityFactory extends BaseFactory<AuthorizationCodeEn
     createAuthCode(authCodeInfo : AuthorizationCodeCreateEntity) : Promise<AuthorizationCodeEntity>;
     
     verifyAuthCode(authCode : AuthCode, authMethod?: OAuthAuthorizationMethod, clientID?: APPClientID, maskUID?: MaskUID, codeVerifier?: string) : Promise<boolean>;
-    verifyAndUseAuthCode(authCode : AuthCode, authMethod?: OAuthAuthorizationMethod, clientID?: APPClientID, maskUID?: MaskUID, codeVerifier?: string) : Promise<boolean>;
+    verifyAndUseAuthCode(authCode : AuthCode, authMethod?: OAuthAuthorizationMethod, clientID?: APPClientID, maskUID?: MaskUID, codeVerifier?: string) : Promise<AuthorizationCodeEntityFactoryUsedInfo | undefined>;
 
     getAuthorizationCode?(authCode : string) : Promise<AuthorizationCodeEntity | undefined>;
     updateAuthorizationCode?(authCode : string, authCodeEntity : AuthorizationCodeEntity, oldAuthCodeEntity?: AuthorizationCodeEntity) : Promise<void>;
