@@ -1,10 +1,11 @@
 import {TicketRecordEntity, TicketRecordEntityID, TicketRecordSingleResponse} from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/EXT-Ticket/TicketRecordEntity';
-import { MaskUID } from '../../../../pdk2021-common/dist/AbstractDataTypes/MaskID/MaskIDEntity';
-import { OAuthAccessToken } from '../../../../pdk2021-common/dist/AbstractDataTypes/OAuth/Token/OAuthToken';
-import { APPClientID, APPUID } from '../../../../pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat';
-import { UserEntityUID } from '../../../../pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
-import { UserAccessToken } from '../../../../pdk2021-common/dist/AbstractDataTypes/User/UserToken';
-import { SearchResult } from '../../../../pdk2021-common/dist/InternalDataTypes/SearchResult';
+import { MaskUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/MaskID/MaskIDEntity';
+import { OAuthAccessToken } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/Token/OAuthToken';
+import { APPClientID, APPUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat';
+import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
+import { UserAccessToken } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserToken';
+import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
+import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
 import { BaseFactory } from '../BaseFactory';
 import { OAuthTokenFactory } from '../OAuth/Token/OAuthTokenFactory';
 import { APPEntityFactory } from '../RegisteredAPP/APPEntityFactory';
@@ -29,6 +30,8 @@ export type {TicketRecordFactoryInstallInfo};
 interface TicketRecordFactory extends BaseFactory<TicketRecordFactoryInstallInfo>{
     getTicketIDMaxLen() : number;
     getTicketIDExactLen?() : number;
+
+    getAPPSystemSetting() : BackendAPPSystemSetting;
 
     createTicketRecord(createInfo: TicketRecordCreateInfo) : Promise<TicketRecordEntity>;
     
