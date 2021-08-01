@@ -7,6 +7,7 @@ import { UserAccessToken } from '@interactiveplus/pdk2021-common/dist/AbstractDa
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
 import { BaseFactory } from '../BaseFactory';
+import { MaskIDEntityFactory } from '../MaskID/MaskIDEntityFactory';
 import { OAuthTokenFactory } from '../OAuth/Token/OAuthTokenFactory';
 import { APPEntityFactory } from '../RegisteredAPP/APPEntityFactory';
 import { UserEntityFactory } from '../User/UserEntityFactory';
@@ -22,7 +23,8 @@ interface TicketRecordFactoryInstallInfo{
     userEntityFactory: UserEntityFactory,
     appEntityFactory: APPEntityFactory,
     oAuthTokenFactory: OAuthTokenFactory,
-    userTokenFactory: UserTokenFactory
+    userTokenFactory: UserTokenFactory,
+    maskIDEntityFactory: MaskIDEntityFactory
 }
 
 export type {TicketRecordFactoryInstallInfo};
