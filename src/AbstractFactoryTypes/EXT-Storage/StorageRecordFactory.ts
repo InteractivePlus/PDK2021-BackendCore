@@ -5,6 +5,7 @@ import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractData
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BackendAPPSystemSetting } from '../../AbstractDataTypes/SystemSetting/BackendAPPSystemSetting';
 import { BaseFactory } from '../BaseFactory';
+import { MaskIDEntityFactory } from '../MaskID/MaskIDEntityFactory';
 import { APPEntityFactory } from '../RegisteredAPP/APPEntityFactory';
 import { UserEntityFactory } from '../User/UserEntityFactory';
 
@@ -14,7 +15,8 @@ export type {StorageRecordFactoryCreateInfo};
 
 interface StorageRecordFactoryInstallInfo{
     userEntityFactory: UserEntityFactory,
-    appEntityFactory: APPEntityFactory
+    appEntityFactory: APPEntityFactory,
+    maskIDEntityFactory: MaskIDEntityFactory
 }
 
 export type {StorageRecordFactoryInstallInfo};
