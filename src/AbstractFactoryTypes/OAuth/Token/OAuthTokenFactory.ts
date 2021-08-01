@@ -3,7 +3,7 @@ import { OAuthAccessToken, OAuthRefreshToken, OAuthToken } from '@interactiveplu
 import { APPClientID, APPUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/RegisteredAPP/APPEntityFormat';
 import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserEntity';
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
-import { OAuthScope } from '../../../../../pdk2021-common/dist/AbstractDataTypes/OAuth/OAuthScope';
+import { OAuthScope } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/OAuthScope';
 import { BackendOAuthSystemSetting } from '../../../AbstractDataTypes/SystemSetting/BackendOAuthSystemSetting';
 import { BaseFactory } from '../../BaseFactory';
 import { MaskIDEntityFactory } from '../../MaskID/MaskIDEntityFactory';
