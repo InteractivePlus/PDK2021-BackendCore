@@ -30,6 +30,8 @@ export type {TicketRecordFactoryInstallInfo};
 interface TicketRecordFactory extends BaseFactory<TicketRecordFactoryInstallInfo>{
     getTicketIDMaxLen() : number;
     getTicketIDExactLen?() : number;
+    isTicketIDNumber() : boolean;
+
 
     getAPPSystemSetting() : BackendAPPSystemSetting;
 

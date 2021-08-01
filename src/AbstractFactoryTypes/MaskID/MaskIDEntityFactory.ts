@@ -12,7 +12,8 @@ export type {MaskIDCreateEntity};
 
 interface MaskIDEntityFactory extends BaseFactory<void>{
     getMaskIDMaxLength() : number;
-    getMaskExactLength?(): number;
+    getMaskIDExactLength?(): number;
+    isMaskIDNumber() : boolean;
 
     getOAuthSystemSetting() : BackendOAuthSystemSetting;
 
