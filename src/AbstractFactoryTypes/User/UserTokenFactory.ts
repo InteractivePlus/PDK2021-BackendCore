@@ -4,6 +4,7 @@ import { UserEntityUID } from '@interactiveplus/pdk2021-common/dist/AbstractData
 import { SearchResult } from '@interactiveplus/pdk2021-common/dist/InternalDataTypes/SearchResult';
 import { BaseFactory } from '../BaseFactory';
 import { UserEntityFactory } from './UserEntityFactory';
+import { UserPermission } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/User/UserPermission';
 
 type UserTokenCreateInfo = {
     [key in keyof UserToken as Exclude<key,'accessToken'|'refreshToken'>]: UserToken[key]
@@ -27,6 +28,8 @@ interface UserTokenFactory extends BaseFactory<UserTokenFactoryInstallInfo>{
 
     createUserToken(createInfo : UserTokenCreateInfo) : Promise<UserToken>;
 
+    retrieveUserAccessTokenPermissionInfo?(accessToken: UserAccessToken) : Promise<UserPermission>;
+
     verifyUserAccessToken(accessToken: UserAccessToken, userId: UserEntityUID) : Promise<boolean>;
     setUserAccessTokenInvalid?(accessToken : UserAccessToken) : Promise<void>;
 
@@ -41,6 +44,8 @@ interface UserTokenFactory extends BaseFactory<UserTokenFactoryInstallInfo>{
     updateUserTokenByRefreshToken?(refreshToken : UserRefreshToken, tokenEntity : UserToken, oldTokenEntity?: UserToken) : Promise<void>;
     deleteUserToken?(accessToken : UserAccessToken) : Promise<void>;
     deleteUserTokenByRefreshToken?(refreshToken : UserRefreshToken) : Promise<void>;
+
+    clearUserOwnedToken(uid: UserEntityUID) : Promise<void>;
 
     getUserTokenCount?(
         userId?: UserEntityUID,
