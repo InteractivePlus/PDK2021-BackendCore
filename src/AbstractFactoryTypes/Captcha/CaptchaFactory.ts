@@ -15,14 +15,15 @@ interface CaptchaFactoryInstallInfo{
 
 export type {CaptchaFactoryInstallInfo};
 
-interface CaptchaFactory<CaptchaInfo, CaptchaVerifyInfo> extends BaseFactory<CaptchaFactoryInstallInfo>{
+interface CaptchaFactory<CaptchaInfo, CaptchaVerifyInfo, CaptchaCreateInfo> extends BaseFactory<CaptchaFactoryInstallInfo>{
     getCaptchaSystemSetting() : BackendCaptchaSystemSetting;
-    
-    generateCaptchaWithAPP(client_id: APPClientID, ipAddress : string, mask_uid?: MaskUID) : Promise<CaptchaInfo>;
-    generateCaptchaWithPDK(ipAddress : string, user_uid?: UserEntityUID) : Promise<CaptchaInfo>;
+
+    generateCaptchaWithAPP(createInfo: CaptchaCreateInfo, client_id: APPClientID, ipAddress : string, mask_uid?: MaskUID) : Promise<CaptchaInfo>;
+    generateCaptchaWithPDK(createInfo: CaptchaCreateInfo, ipAddress : string, user_uid?: UserEntityUID) : Promise<CaptchaInfo>;
     verifyCaptcha(verifyInfo : CaptchaVerifyInfo, ipAddress : string, clientID?: APPClientID | null, user_uid?: UserEntityUID, mask_uid?: MaskUID) : Promise<boolean>;
     verifyAndUseCaptcha(verifyInfo : CaptchaVerifyInfo, ipAddress : string, clientID?: APPClientID | null, user_uid?: UserEntityUID, mask_uid?: MaskUID) : Promise<boolean>;
     
+    parseCaptchaCreateInfo(toParse : any) : Promise<CaptchaCreateInfo | undefined>;
     parseCaptchaVerifyInfo(toParse : any) : Promise<CaptchaVerifyInfo | undefined>;
     
     clearOutdatedAndUsedCaptchas() : Promise<void>;

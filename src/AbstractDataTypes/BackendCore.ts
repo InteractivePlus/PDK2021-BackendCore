@@ -12,7 +12,7 @@ import { BackendSystemSetting } from "./SystemSetting/BackendSystemSetting";
 import { StorageRecordFactory } from "../AbstractFactoryTypes/EXT-Storage/StorageRecordFactory";
 import { TicketRecordFactory } from "../AbstractFactoryTypes/EXT-Ticket/TicketRecordFactory";
 
-class BackendCore<CaptchaInfo, CaptchaVerifyInfo>{
+class BackendCore<CaptchaInfo, CaptchaVerifyInfo, CaptchaCreateInfo>{
     constructor(
         public systemSettings: BackendSystemSetting,
         public veriCodeEntityFactory: VerificationCodeEntityFactory,
@@ -24,7 +24,7 @@ class BackendCore<CaptchaInfo, CaptchaVerifyInfo>{
         public userTokenFactory: UserTokenFactory,
         public userEntityFactory: UserEntityFactory,
         public userGroupFactory: UserGroupFactory,
-        public captchaFactory: CaptchaFactory<CaptchaInfo,CaptchaVerifyInfo>,
+        public captchaFactory: CaptchaFactory<CaptchaInfo,CaptchaVerifyInfo, CaptchaCreateInfo>,
         public StorageRecordFactory?: StorageRecordFactory,
         public TicketRecordFactory?: TicketRecordFactory
     ){

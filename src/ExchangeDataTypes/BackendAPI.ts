@@ -28,7 +28,7 @@ interface BackendAPI<ParamType extends {} | {
      * @param remoteIPAddress ipAddress of the request initiator
      * @throws {PossibleErrorTypes} error types
      */
-    apiFunction(params : ParamType, backendCore : BackendCore<any,any>, remoteIPAddress : string) : Promise<ReturnDataType>,
+    apiFunction(params : ParamType, backendCore : BackendCore<any,any,any>, remoteIPAddress : string) : Promise<ReturnDataType>,
     
     additionalParamCheck?: (params: any) => {succeed: boolean, errorParams: (keyof ParamType)[]}
 }
@@ -46,7 +46,7 @@ async function processAPIRequest<ParamType extends {}, ReturnDataType extends {}
     urlParams: any,
     getParams: any,
     bodyParams: any,
-    backendCore: BackendCore<any,any>,
+    backendCore: BackendCore<any,any,any>,
     remoteIPAddr: any
 ) : Promise<BackendServerReturnType<ParamType, ReturnDataType, PossibleErrorTypes>>{
     try{
