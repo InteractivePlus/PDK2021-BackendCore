@@ -20,7 +20,27 @@ interface CaptchaFactory<CaptchaInfo, CaptchaVerifyInfo, CaptchaCreateInfo> exte
 
     generateCaptchaWithAPP(createInfo: CaptchaCreateInfo, client_id: APPClientID, ipAddress : string, mask_uid?: MaskUID) : Promise<CaptchaInfo>;
     generateCaptchaWithPDK(createInfo: CaptchaCreateInfo, ipAddress : string, user_uid?: UserEntityUID) : Promise<CaptchaInfo>;
+    
+    /**
+     * 
+     * @param verifyInfo 
+     * @param ipAddress 
+     * @param clientID 
+     * @param user_uid 
+     * @param mask_uid 
+     * @throws {PDKItemExpiredOrUsedError<'captcha_info'>}
+     */
     verifyCaptcha(verifyInfo : CaptchaVerifyInfo, ipAddress : string, clientID?: APPClientID | null, user_uid?: UserEntityUID, mask_uid?: MaskUID) : Promise<boolean>;
+    
+    /**
+     * 
+     * @param verifyInfo 
+     * @param ipAddress 
+     * @param clientID 
+     * @param user_uid 
+     * @param mask_uid 
+     * @throws {PDKItemExpiredOrUsedError<'captcha_info'>}
+     */
     verifyAndUseCaptcha(verifyInfo : CaptchaVerifyInfo, ipAddress : string, clientID?: APPClientID | null, user_uid?: UserEntityUID, mask_uid?: MaskUID) : Promise<boolean>;
     
     parseCaptchaCreateInfo(toParse : any) : Promise<CaptchaCreateInfo | undefined>;
