@@ -63,12 +63,12 @@ interface OAuthTokenFactory extends BaseFactory<OAuthTokenFactoryInstallInfo>{
     deleteOAuthTokenByRefreshToken?(refreshToken : OAuthRefreshToken) : Promise<void>;
 
     getAuthorizedRecordCountByMaskID(maskID : MaskUID) : Promise<number>;
-    listAuthorizedRecordsByMaskID(maskID: MaskUID, numLimit : number, startPosition : number) : Promise<SearchResult<OAuthTokenFactoryGrantHistorySearchResult>>;
-    clearAuthorizedRecordsByMaskID(maskID: MaskUID, numLimit : number, startPosition : number) : Promise<void>;
+    listAuthorizedRecordsByMaskID(maskID: MaskUID, numLimit? : number, startPosition? : number) : Promise<SearchResult<OAuthTokenFactoryGrantHistorySearchResult>>;
+    clearAuthorizedRecordsByMaskID(maskID: MaskUID, numLimit? : number, startPosition? : number) : Promise<void>;
     
     getAuthorizedRecordCountByUID(uid : UserEntityUID) : Promise<number>;
-    listAuthorizedRecordsByUID(uid: UserEntityUID, numLimit : number, startPosition : number) : Promise<SearchResult<OAuthTokenFactoryGrantHistorySearchResult>>;
-    clearAuthorizedRecordsByUID(uid: UserEntityUID, numLimit : number, startPosition : number) : Promise<void>;
+    listAuthorizedRecordsByUID(uid: UserEntityUID, numLimit? : number, startPosition? : number) : Promise<SearchResult<OAuthTokenFactoryGrantHistorySearchResult>>;
+    clearAuthorizedRecordsByUID(uid: UserEntityUID, numLimit? : number, startPosition? : number) : Promise<void>;
 
     deleteAuthorizedAPPGrantByHistoryIdentifier(idenfifier: number | string, operatorUserUID? : UserEntityUID) : Promise<void>;
 
