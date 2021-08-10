@@ -54,7 +54,7 @@ async function processAPIRequest<ParamType extends {}, ReturnDataType extends {}
         let realParams = Object.assign({},urlParams,paramField);
         //check paramType matches joitype and additionalParamCheck
         
-        let apiParseParamResult = backendAPI.parseParams(realParams);
+        let apiParseParamResult = backendAPI.parseParams(realParams,backendCore.systemSettings);
         if(!apiParseParamResult.succeed || apiParseParamResult.parsedParam === undefined){
             throw new PDKRequestParamFormatError(apiParseParamResult.errorParams === undefined ? [] : apiParseParamResult.errorParams);
         }
