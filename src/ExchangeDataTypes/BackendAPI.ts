@@ -1,7 +1,6 @@
 import { PDKCredentialNotMatchError, PDKException, PDKExceptionCode, PDKInnerArgumentError, PDKRequestParamFormatError, PDKUnknownInnerError } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/Error/PDKException';
 import { PDKAPI, PDKAPIHTTPMethods, PDKExceptionCodeToHTTPCodeTable } from '@interactiveplus/pdk2021-common/dist/ExchangeDataTypes/PDKAPI';
 import { PDKPossibleServerReturnErrTypes, PDKServerReturn } from '@interactiveplus/pdk2021-common/dist/ExchangeDataTypes/PDKServerReturn';
-import { getJoiValidationErrorFirstPaths } from '@interactiveplus/pdk2021-common/dist/Utilities/JoiCheckFunctions';
 import { MaskUID } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/MaskID/MaskIDEntity';
 import { OAuthScope } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/OAuthScope';
 import { OAuthAccessToken } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/OAuth/Token/OAuthToken';
@@ -54,14 +53,12 @@ async function processAPIRequest<ParamType extends {}, ReturnDataType extends {}
         let paramField = PDKAPIHTTPMethods[backendAPI.interactMethod].paramInRequestURL ? getParams : bodyParams;
         let realParams = Object.assign({},urlParams,paramField);
         //check paramType matches joitype and additionalParamCheck
-        let validationResult = backendAPI.paramJoiType.validate(realParams);
-        if(validationResult.error !== undefined){
-            throw new PDKRequestParamFormatError<keyof ParamType>(
-                getJoiValidationErrorFirstPaths(validationResult.error) as (keyof ParamType)[],
-                'Request Param Error'
-            );
+        
+        let apiParseParamResult = backendAPI.parseParams(realParams);
+        if(!apiParseParamResult.succeed || apiParseParamResult.parsedParam === undefined){
+            throw new PDKRequestParamFormatError(apiParseParamResult.errorParams === undefined ? [] : apiParseParamResult.errorParams);
         }
-        let parsedRequestParams = validationResult.value;
+        let parsedRequestParams : any = apiParseParamResult.parsedParam;
         if(backendAPI.additionalParamCheck !== undefined){
             let additionalCheckRst = backendAPI.additionalParamCheck(parsedRequestParams);
             if(!additionalCheckRst.succeed){

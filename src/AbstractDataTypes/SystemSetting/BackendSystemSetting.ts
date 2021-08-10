@@ -4,8 +4,9 @@ import { BackendCaptchaSystemSetting } from './BackendCaptchaSystemSetting';
 import { BackendCommunicationSystemSetting } from './BackendCommunicationSystemSetting';
 import { BackendOAuthSystemSetting } from './BackendOAuthSystemSetting';
 import { BackendUserSystemSetting } from './BackendUserSystemSetting';
+import { SystemSettings } from '@interactiveplus/pdk2021-common/dist/AbstractDataTypes/SystemSetting/SystemSettings';
 
-interface BackendSystemSetting{
+interface BackendSystemSetting extends SystemSettings{
     avatarSystemSetting: BackendAvatarSystemSetting;
     appSystemSetting: BackendAPPSystemSetting;
     oAuthSystemSetting: BackendOAuthSystemSetting;
