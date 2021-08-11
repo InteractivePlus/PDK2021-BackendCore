@@ -38,8 +38,8 @@ interface VerificationCodeEntityFactory extends BaseFactory<VerificationCodeEnti
     createVerificationCode<ParamType>(createInfo: VerificationCodeCreateEntity<ParamType>) : Promise<VerificationCodeEntity<ParamType>>;
     revokeCreatedVerificationCode<ParamType>(createdVeriCodeEntity : VerificationCodeEntity<ParamType>) : Promise<void>;
     
-    verifyVerificationCode(veriCode : VeriCodeEntityID, isShortCode : boolean, uid?: UserEntityUID, appuid?: APPUID, client_id?: APPClientID, mask_id?: MaskUID, useScope?: string | number) : Promise<boolean>;
-    verifyAndUseVerificationCode(veriCode : VeriCodeEntityID, isShortCode : boolean, uid?: UserEntityUID, appuid?: APPUID, client_id?: APPClientID, mask_id?: MaskUID, useScope?: string | number) : Promise<boolean>;
+    verifyVerificationCode(veriCode : VeriCodeEntityID, isShortCode : boolean, uid?: UserEntityUID, appuid?: APPUID | null, client_id?: APPClientID | null, mask_id?: MaskUID, useScope?: string | number) : Promise<boolean>;
+    verifyAndUseVerificationCode(veriCode : VeriCodeEntityID, isShortCode : boolean, uid?: UserEntityUID, appuid?: APPUID | null, client_id?: APPClientID | null, mask_id?: MaskUID, useScope?: string | number) : Promise<boolean>;
     
     getVerificationCode?(veriCodeID : VeriCodeEntityID) : Promise<VerificationCodeEntity<unknown> | undefined>;
     updateVerificationCode?<ParamType>(veriCodeID: VeriCodeEntityID, veriCode : VerificationCodeEntity<ParamType>, oldVeriCode?: VerificationCodeEntity<ParamType>) : Promise<void>;
@@ -51,9 +51,9 @@ interface VerificationCodeEntityFactory extends BaseFactory<VerificationCodeEnti
         veriCodeID?: VeriCodeEntityID,
         isShortID?: boolean,
         relatedUser?: UserEntityUID,
-        relatedAPP?: APPUID,
+        relatedAPP?: APPUID | null,
         relatedMaskID?: MaskUID,
-        relatedAPPClientID?: APPClientID,
+        relatedAPPClientID?: APPClientID | null,
         relatedAPPOAuthToken?: OAuthAccessToken,
         triggerClientIP?: string,
         issueUTCTimeMin?: number,
@@ -69,9 +69,9 @@ interface VerificationCodeEntityFactory extends BaseFactory<VerificationCodeEnti
         veriCodeID?: VeriCodeEntityID,
         isShortID?: boolean,
         relatedUser?: UserEntityUID,
-        relatedAPP?: APPUID,
+        relatedAPP?: APPUID | null,
         relatedMaskID?: MaskUID,
-        relatedAPPClientID?: APPClientID,
+        relatedAPPClientID?: APPClientID | null,
         relatedAPPOAuthToken?: OAuthAccessToken,
         triggerClientIP?: string,
         issueUTCTimeMin?: number,
@@ -89,9 +89,9 @@ interface VerificationCodeEntityFactory extends BaseFactory<VerificationCodeEnti
         veriCodeID?: VeriCodeEntityID,
         isShortID?: boolean,
         relatedUser?: UserEntityUID,
-        relatedAPP?: APPUID,
+        relatedAPP?: APPUID | null,
         relatedMaskID?: MaskUID,
-        relatedAPPClientID?: APPClientID,
+        relatedAPPClientID?: APPClientID | null,
         relatedAPPOAuthToken?: OAuthAccessToken,
         triggerClientIP?: string,
         issueUTCTimeMin?: number,

@@ -146,6 +146,45 @@ async function processAPIRequest<ParamType extends {}, ReturnDataType extends {}
                     throw new PDKCredentialNotMatchError(['captcha_info']);
                 }
             }
+            if(backendAPI.vericodeInfo.requiresVeriCode){
+                if(!('verification_code' in parsedRequestParams) || typeof(parsedRequestParams.verification_code) !== 'string'){
+                    throw new PDKRequestParamFormatError(['verification_code']);
+                }
+                let verificationCode : string = parsedRequestParams.verification_code;
+                let isVeriCodeShortCode : boolean = true;
+                if('is_vericode_short_code' in parsedRequestParams){
+                    isVeriCodeShortCode = parsedRequestParams.is_vericode_short_code === true;
+                }
+
+                let verifyVeriCodeClientID : APPClientID | null | undefined = undefined;
+                if(backendAPI.vericodeInfo.requiresVeriCodeToMatchPDK){
+                    verifyVeriCodeClientID = null;
+                }else if(backendAPI.vericodeInfo.requiresVeriCodeToMatchClientID){
+                    if(relatedClientID === undefined){
+                        throw new PDKInnerArgumentError(['oauth_access_token'],'Looks like the administrator put some wrong configurations!');
+                    }
+                    verifyVeriCodeClientID = relatedClientID;
+                }
+                let verifyMaskID : MaskUID | undefined = undefined;
+                if(backendAPI.vericodeInfo.requiresVeriCodeToMatchMaskID){
+                    if(relatedMaskID === undefined){
+                        throw new PDKInnerArgumentError(['oauth_access_token'],'Looks like the administrator put some wrong configurations!');
+                    }
+                    verifyMaskID = relatedMaskID;
+                }
+                let verifyUID : UserEntityUID | undefined;
+                if(backendAPI.vericodeInfo.requiresVeriCodeToMatchUID){
+                    if(relatedUID === undefined){
+                        throw new PDKInnerArgumentError(['user_access_token'],'Looks like the administrator put some wrong configurations!');
+                    }
+                    verifyUID = relatedUID;
+                }
+                let vericodeVerifyInfo = await backendCore.veriCodeEntityFactory.verifyAndUseVerificationCode(verificationCode,isVeriCodeShortCode,verifyUID,undefined,verifyVeriCodeClientID,verifyMaskID,backendAPI.vericodeInfo.requiresVeriCodeScope);
+
+                if(!vericodeVerifyInfo){
+                    throw new PDKCredentialNotMatchError(['verification_code']);
+                }
+            }
             if(backendAPI.appPermissionInfo.checkPermissionFunc !== undefined){
                 if(relatedOAuthAccessToken === undefined){
                     relatedAPPPermission = undefined;
