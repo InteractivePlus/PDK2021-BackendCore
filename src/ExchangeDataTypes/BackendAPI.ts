@@ -81,40 +81,40 @@ async function processAPIRequest<ParamType extends {}, ReturnDataType extends {}
             let relatedOAuthAccessToken : OAuthAccessToken | undefined = undefined;
 
             if(backendAPI.authenticationInfo.requireUserToken){
-                if(!('user_access_token' in parsedRequestParams) || typeof(parsedRequestParams.user_access_token) !== 'string'){
+                if(!('user_access_token' in realParams) || typeof(realParams.user_access_token) !== 'string'){
                     throw new PDKRequestParamFormatError(['user_access_token']);
-                }else if(!('uid' in parsedRequestParams) || (typeof(parsedRequestParams.uid) !== 'number' && typeof(parsedRequestParams.uid) !== 'string')){
+                }else if(!('uid' in realParams) || (typeof(realParams.uid) !== 'number' && typeof(realParams.uid) !== 'string')){
                     throw new PDKRequestParamFormatError(['uid']);
                 }
-                if(!(await backendCore.userTokenFactory.verifyUserAccessToken(parsedRequestParams.user_access_token,parsedRequestParams.uid))){
+                if(!(await backendCore.userTokenFactory.verifyUserAccessToken(realParams.user_access_token,realParams.uid))){
                     throw new PDKCredentialNotMatchError(['user_access_token'],'User Token Credentials Not Match');
                 }
-                relatedUID = parsedRequestParams.uid;
-                relatedUserAccessToken = parsedRequestParams.user_access_token;
+                relatedUID = realParams.uid;
+                relatedUserAccessToken = realParams.user_access_token;
             }
             if(backendAPI.authenticationInfo.requireOAuthToken){
-                if(!('oauth_access_token' in parsedRequestParams) || typeof(parsedRequestParams.oauth_access_token) !== 'string'){
+                if(!('oauth_access_token' in realParams) || typeof(realParams.oauth_access_token) !== 'string'){
                     throw new PDKRequestParamFormatError(['oauth_access_token']);
-                }else if(!('client_id' in parsedRequestParams) || typeof(parsedRequestParams.client_id) !== 'string'){
+                }else if(!('client_id' in realParams) || typeof(realParams.client_id) !== 'string'){
                     throw new PDKRequestParamFormatError(['client_id']);
-                }else if(!('mask_uid' in parsedRequestParams) || (typeof(parsedRequestParams.mask_uid) !== 'string' || typeof(parsedRequestParams.mask_uid) !== 'number')){
+                }else if(!('mask_uid' in realParams) || (typeof(realParams.mask_uid) !== 'string' || typeof(realParams.mask_uid) !== 'number')){
                     throw new PDKRequestParamFormatError(['mask_uid']);
                 }
                 let requiredScopes : OAuthScope[] | undefined = backendAPI.oAuthPermissionInfo.requiredScopes;
                 //May throw permissionDeniedError<'scopes'> here
                 //And may also throw ExpiredOrUsedError<'oauth_access_token'> here
-                if(!(await backendCore.oAuthTokenFactory.verifyOAuthAccessToken(parsedRequestParams.oauth_access_token,parsedRequestParams.mask_uid,parsedRequestParams.client_id,requiredScopes))){
+                if(!(await backendCore.oAuthTokenFactory.verifyOAuthAccessToken(realParams.oauth_access_token,realParams.mask_uid,realParams.client_id,requiredScopes))){
                     throw new PDKCredentialNotMatchError(['oauth_access_token']);
                 }
-                relatedMaskID = parsedRequestParams.mask_uid;
-                relatedClientID = parsedRequestParams.client_id;
-                relatedOAuthAccessToken = parsedRequestParams.oauth_access_token;
+                relatedMaskID = realParams.mask_uid;
+                relatedClientID = realParams.client_id;
+                relatedOAuthAccessToken = realParams.oauth_access_token;
             }
             if(backendAPI.captchaInfo.requiresCaptcha){
-                if(!('captcha_info' in parsedRequestParams)){
+                if(!('captcha_info' in realParams)){
                     throw new PDKRequestParamFormatError(['captcha_info']);
                 }
-                let parsedCaptchaInfo = backendCore.captchaFactory.parseCaptchaVerifyInfo(parsedRequestParams.captcha_info);
+                let parsedCaptchaInfo = backendCore.captchaFactory.parseCaptchaVerifyInfo(realParams.captcha_info);
                 if(parsedCaptchaInfo === undefined){
                     throw new PDKRequestParamFormatError(['captcha_info']);
                 }
@@ -147,13 +147,13 @@ async function processAPIRequest<ParamType extends {}, ReturnDataType extends {}
                 }
             }
             if(backendAPI.vericodeInfo.requiresVeriCode){
-                if(!('verification_code' in parsedRequestParams) || typeof(parsedRequestParams.verification_code) !== 'string'){
+                if(!('verification_code' in realParams) || typeof(realParams.verification_code) !== 'string'){
                     throw new PDKRequestParamFormatError(['verification_code']);
                 }
-                let verificationCode : string = parsedRequestParams.verification_code;
+                let verificationCode : string = realParams.verification_code;
                 let isVeriCodeShortCode : boolean = true;
-                if('is_vericode_short_code' in parsedRequestParams){
-                    isVeriCodeShortCode = parsedRequestParams.is_vericode_short_code === true;
+                if('is_vericode_short_code' in realParams){
+                    isVeriCodeShortCode = realParams.is_vericode_short_code === true;
                 }
 
                 let verifyVeriCodeClientID : APPClientID | null | undefined = undefined;
