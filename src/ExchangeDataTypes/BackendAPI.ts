@@ -156,6 +156,10 @@ async function processAPIRequest<ParamType extends {}, ReturnDataType extends {}
                     isVeriCodeShortCode = realParams.is_vericode_short_code === true;
                 }
 
+                if((isVeriCodeShortCode && !backendAPI.vericodeInfo.enablesShortCode) || (!isVeriCodeShortCode && !backendAPI.vericodeInfo.enablesLongCode)){
+                    throw new PDKCredentialNotMatchError(['verification_code']);
+                }
+
                 let verifyVeriCodeClientID : APPClientID | null | undefined = undefined;
                 if(backendAPI.vericodeInfo.requiresVeriCodeToMatchPDK){
                     verifyVeriCodeClientID = null;
